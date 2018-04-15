@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use App\Events\Auth\UserRequestedActivationEmail;
 
 class RegisterController extends Controller
 {
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -38,6 +40,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+
     }
 
     /**
@@ -67,6 +70,18 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'active' => false,
+            'activation_token' => str_random(255)
         ]);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        event(new UserRequestedActivationEmail($user));
+
+        $this->guard()->logout();
+
+        return redirect($this->redirectPath())
+            ->withSuccess('Registriert. Bitte überprüfen Sie Ihren Email Account.');
     }
 }

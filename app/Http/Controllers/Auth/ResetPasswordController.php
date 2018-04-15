@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\PasswordReset;
 
 class ResetPasswordController extends Controller
 {
@@ -25,7 +27,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -35,5 +37,26 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    protected function resetPassword($user, $password)
+    {
+        $user->password = Hash::make($password);
+
+        $user->setRememberToken(str_random(60));
+
+        $user->save();
+
+        event(new PasswordReset($user));
+
+        if ($user->active) {
+            $this->guard()->login($user);
+        }
+    }
+
+    protected function sendResetResponse($response)
+    {
+        return redirect($this->redirectPath())
+                            ->withSuccess('Ihr Passwort wurde zurückgesetzt.');
     }
 }
