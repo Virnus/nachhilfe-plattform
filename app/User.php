@@ -28,6 +28,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function angebote()
+    {
+        return $this->hasMany(Angebot::class);
+    }
+
     public function scopeByActivationColumns(Builder $builder, $email, $token)
     {
         return $builder->where('email', $email)->where('activation_token', $token);
