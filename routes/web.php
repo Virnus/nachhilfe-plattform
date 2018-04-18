@@ -13,7 +13,8 @@
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/', 'Home\\HomeController@index')->name('home');
-
+    Route::get('/lernzentrum', 'Home\\LernzentrumController@index')->name('lernzentrum');
+    Route::get('/lernzentrum/{lernzentrum}', 'Home\\LernzentrumController@detail')->name('lernzentrum.detail');
 });
 
 Auth::routes();

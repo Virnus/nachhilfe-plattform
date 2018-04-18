@@ -2,3 +2,30 @@
 @import "bulma";
 
 // Custom
+@import "spacing";
+
+.border-right-1 {
+    border-right: #dcdcdc 1px solid;
+    @media screen and (max-width: $tablet) {
+        border-right: none;
+    }
+}
+
+.user-badge {
+    display: flex;
+    margin: 5px 0 10px 0;
+
+    .image {
+        margin-left: 0;
+        margin-right: 1rem;
+        margin-bottom: 0 !important;
+    }
+
+    img {
+        border-radius: 50%;
+    }
+
+    a {
+        line-height: 32px;
+    }
+}
