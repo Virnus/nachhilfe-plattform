@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
+use \Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -31,6 +32,11 @@ class User extends Authenticatable
     public function angebote()
     {
         return $this->hasMany(Angebot::class);
+    }
+
+    public function hasRole($role)
+    {
+        return $role === lcfirst(DB::table('roles')->where('id', $this->role_id)->first()->name);
     }
 
     public function scopeByActivationColumns(Builder $builder, $email, $token)
