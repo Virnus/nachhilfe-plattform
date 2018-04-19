@@ -49,7 +49,7 @@
           <div class="field">
               <label class="label">Password</label>
               <div class="control">
-                  <input class="input{{ $errors->has('email') ? ' is-danger' : '' }}" id="password" type="password" name="password" required>
+                  <input class="input{{ $errors->has('password') ? ' is-danger' : '' }}" id="password" type="password" name="password" required>
               </div>
               @if ($errors->has('password'))
                   <p class="help is-danger">
