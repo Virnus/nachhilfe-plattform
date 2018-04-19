@@ -4,3 +4,10 @@
         {{ session('success') }}
     </div>
 @endif
+
+@if (session('error'))
+    <div class="notification is-danger">
+        <button class="delete"></button>
+        {{ session('error') }}
+    </div>
+@endif
