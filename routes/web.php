@@ -32,6 +32,10 @@ Route::middleware(['auth'])->group(function() {
     });
 });
 
+Route::resource('datatable/users', 'DataTable\UserController');
+
+Route::get('/admin/users', 'Admin\UserController@index');
+
 // Auth
 Auth::routes();
 

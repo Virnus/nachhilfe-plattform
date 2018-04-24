@@ -991,7 +991,7 @@ window.Vue = __webpack_require__(34);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(37));
+Vue.component('data-table', __webpack_require__(37));
 
 var app = new Vue({
     el: '#app'
@@ -40723,7 +40723,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/ExampleComponent.vue"
+Component.options.__file = "resources\\assets\\js\\components\\DataTable.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -40732,9 +40732,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7168fb6a", Component.options)
+    hotAPI.createRecord("data-v-7f7ae246", Component.options)
   } else {
-    hotAPI.reload("data-v-7168fb6a", Component.options)
+    hotAPI.reload("data-v-7f7ae246", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -40875,11 +40875,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+  props: ['endpoint'],
+  data: function data() {
+    return {
+      response: {
+        table: '',
+        displayable: [],
+        records: []
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.getRecords();
+  },
+
+  methods: {
+    getRecords: function getRecords() {
+      var _this = this;
+
+      return axios.get('' + this.endpoint).then(function (response) {
+        _this.response = response.data.data;
+      });
     }
+  }
 });
 
 /***/ }),
@@ -40890,38 +40920,50 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
+  return _c("div", { staticClass: "card is-shady" }, [
+    _c("div", { staticClass: "card-header" }, [
+      _vm._v(_vm._s(_vm.response.table))
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-content" }, [
+      _c("table", { staticClass: "table is-striped is-fullwidth" }, [
+        _c("thead", [
+          _c(
+            "tr",
+            _vm._l(_vm.response.displayable, function(column) {
+              return _c("th", [
+                _vm._v("\r\n            " + _vm._s(column) + "\r\n          ")
+              ])
+            })
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.response.records, function(record) {
+            return _c(
+              "tr",
+              _vm._l(record, function(columnValue, column) {
+                return _c("td", [
+                  _vm._v(
+                    "\r\n            " + _vm._s(columnValue) + "\r\n          "
+                  )
+                ])
+              })
+            )
+          })
+        )
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7168fb6a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7f7ae246", module.exports)
   }
 }
 
