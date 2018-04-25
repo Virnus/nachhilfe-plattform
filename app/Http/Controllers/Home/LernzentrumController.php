@@ -9,24 +9,31 @@ use App\Lernzentrum;
 
 class LernzentrumController extends Controller
 {
-    protected $allLernzentrums;
-
-    function __construct() {
-        $this->allLernzentrums = Lernzentrum::isFuture()->orderBy('date', 'asc')->get();
-    }
-
-    public function index(Request $request)
+    public function index()
     {
-        $lernzentrum = $this->allLernzentrums->first();
-        $allLernzentrums = $this->allLernzentrums;
+        $lernzentrum = Lernzentrum::isFuture()->orderBy('date', 'asc')->first();
 
-        return view('home.lernzentrum', compact('lernzentrum', 'allLernzentrums'));
+        return view('home.lernzentrum', compact('lernzentrum'));
     }
 
     public function detail(Lernzentrum $lernzentrum)
     {
-        $allLernzentrums = $this->allLernzentrums;
+        return view('home.lernzentrum', compact('lernzentrum'));
+    }
 
-        return view('home.lernzentrum', compact('lernzentrum', 'allLernzentrums'));
+    public function signup(Request $request, Lernzentrum $lernzentrum)
+    {
+        if (!$request->user()->lernzentrums->contains($lernzentrum)) {
+            $request->user()->lernzentrums()->attach($lernzentrum);
+        }
+
+        return back();
+    }
+
+    public function signout(Request $request, Lernzentrum $lernzentrum)
+    {
+        $request->user()->lernzentrums()->detach($lernzentrum);
+
+        return back();
     }
 }
