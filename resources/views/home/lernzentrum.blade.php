@@ -36,7 +36,7 @@
                                         {{ $lernzentrum->room }}
                                     </p>
                                     <h4>Freie Plätze:</h4>
-                                    <progress class="progress is-primary" value="12" max="{{ $lernzentrum->max_participants }}">12</progress>
+                                    <progress class="progress is-primary" value="{{ $lernzentrum->users()->count() }}" max="{{ $lernzentrum->max_participants }}">12</progress>
                                 </div>
                             </div>
                             <div class="column is-4">
@@ -44,32 +44,20 @@
                                     <h4>Leitung:</h4>
                                     @include('layouts.partials._user-badge', ['user' => $lernzentrum->teacher])
                                     <h4>Unterstütung:</h4>
-                                    {{-- @include('layouts.partials._user-badge')
-                                    @include('layouts.partials._user-badge')
-                                    @include('layouts.partials._user-badge') --}}
+                                    @each('layouts.partials._user-badge', $lernzentrum->assistants, 'user')
                                 </div>
+                                <form action="{{ route('lernzentrum.signup', [$lernzentrum->id]) }}" method="post">
+                                    {{ csrf_field() }}
+
+                                    <button class="button is-primary is-fullwidth" type="submit" name="button">Anmelden</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="column is-3">
-                <div class="card is-shady">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            Kalender
-                        </p>
-                    </header>
-                    <div class="card-content">
-                        <ul>
-                        @foreach ($allLernzentrums as $date)
-                            <li>
-                                <a href="{{ route('lernzentrum.detail', ['id' => $date->id]) }}" class="is-size-5">{{ $date->date->formatLocalized('%A %d %B %Y') }}</a>
-                            </li>
-                        @endforeach
-                        </ul>
-                    </div>
-                </div>
+                @include('home.partials._lernzentrum-list')
             </div>
         </div>
     </section>

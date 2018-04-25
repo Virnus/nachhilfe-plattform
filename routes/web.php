@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function() {
 
         // Lernzentrum
         Route::get('/lernzentrum', 'LernzentrumController@index')->name('account.lernzentrum');
+        Route::get('/lernzentrum/support', 'LernzentrumSupportController@index')->name('account.lernzentrum.support');
     });
 });
 

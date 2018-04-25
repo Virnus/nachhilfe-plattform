@@ -34,6 +34,16 @@ class User extends Authenticatable
         return $this->hasMany(Angebot::class);
     }
 
+    public function assistants()
+    {
+        return $this->belongsToMany(Lernzentrum::class, 'assistant_lernzentrum', 'assistant_id', 'lernzentrum_id');
+    }
+
+    public function lernzentrums()
+    {
+        return $this->belongsToMany(Lernzentrum::class);
+    }
+
     public function hasRole($role)
     {
         return $role === lcfirst(DB::table('roles')->where('id', $this->role_id)->first()->name);

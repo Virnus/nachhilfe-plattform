@@ -24,8 +24,8 @@
                         lernzentrum
                     </p>
                     <ul class="menu-list">
-                        <li><a>Anmeldungen</a></li>
-                        <li><a>Aufgebote</a></li>
+                        <li><a href="{{ route('account.lernzentrum') }}" class="{{ on_page('*/lernzentrum') ? 'is-active' : '' }}">Anmeldungen</a></li>
+                        <li><a href="{{ route('account.lernzentrum.support') }}" class="{{ on_page('*/lernzentrum/support') ? 'is-active' : '' }}">Aufgebote</a></li>
                     </ul>
                 </aside>
             </div>
