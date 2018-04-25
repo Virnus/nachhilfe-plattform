@@ -17,4 +17,9 @@ class UserController extends DataTableController
         'id', 'name', 'email', 'created_at'
       ];
     }
+    public function getUpdatableColumns() {
+      return [
+        'name', 'email', 'created_at'
+      ];
+    }
 }

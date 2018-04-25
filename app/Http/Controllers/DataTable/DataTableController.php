@@ -28,6 +28,7 @@ abstract class DataTableController extends Controller
         'data' => [
           'table' => $this->builder->getModel()->getTable(),
           'displayable' => array_values($this->getDisplayableColumns()),
+          'updatable' => array_values($this->getUpdatableColumns()),
           'records' => $this->getRecords(),
         ]
       ]);
@@ -37,11 +38,15 @@ abstract class DataTableController extends Controller
       return array_diff($this->getDatabaseColumnNames(), $this->builder->getModel()->getHidden());
     }
 
+    public function getUpdatableColumns() {
+      return $this->getDisplayableColumns();
+    }
+
     protected function getDatabaseColumnNames() {
       return Schema::getColumnListing($this->builder->getModel()->getTable());
     }
 
     protected function getRecords() {
-      return $this->builder->get($this->getDisplayableColumns());
+      return $this->builder->limit(request()->limit)->get($this->getDisplayableColumns());
     }
 }
