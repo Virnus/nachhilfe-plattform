@@ -8,17 +8,6 @@
         <label class="label" for="filter">Quick search current results</label>
         <input type="text" id="filter" class="input" v-model="quickSearchQuery">
       </div>
-      <div class="control is-2">
-        <label class="label" for="limit">Display records</label>
-        <div class="select">
-          <select id="limit" class="control" v-model="limit" @change="getRecords">
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="500">500</option>
-          <option value="">All</option>
-        </select>
-        </div>
-      </div>
     </div>
 
     <table class="table is-striped is-fullwidth">
@@ -31,14 +20,16 @@
           </th>
         </tr>
       </thead>
-      {{editing.test}}
       <tbody>
         <tr v-for="record in filteredRecords">
           <td v-for="columnValue, column in record">
 
             <template v-if="editing.id === record.id && isUpdatable(column)">
               <div class="field">
-                <input type="text" class="input" :value="columnValue" v-model="editing.test[column]">
+                <input type="text" class="input" :class="{'input is-danger': editing.errors[column]}" v-model="editing.form[column]">
+                <p class="help is-danger" v-if="editing.errors[column]">
+                  {{editing.errors[column][0]}}
+                  </p>
               </div>
             </template>
             <template v-else>
@@ -51,6 +42,7 @@
             <a href="#" @click.prevent="edit(record)" v-if="editing.id !== record.id">Edit</a>
 
             <template v-if="editing.id === record.id">
+              <a href="#" @click.prevent="update">Save</a>
               <a href="#" @click.prevent="editing.id = null">Cancel</a>
             </template>
           </td>
@@ -78,13 +70,11 @@ export default {
         key: 'id',
         order: 'asc'
       },
-
-      limit: 50,
       quickSearchQuery: '',
       editing: {
         id: null,
-        test: {},
-        errors: []
+        errors: [],
+        form: {}
       }
     }
   },
@@ -113,13 +103,8 @@ export default {
   },
   methods: {
     getRecords() {
-      return axios.get(`${this.endpoint}?${this.getQueryParameters()}`).then((response) => {
+      return axios.get(`${this.endpoint}`).then((response) => {
         this.response = response.data.data
-      })
-    },
-    getQueryParameters() {
-      return queryString.stringify({
-        limit: this.limit
       })
     },
     sortBy(column) {
@@ -133,6 +118,16 @@ export default {
     },
     isUpdatable (column) {
       return this.response.updatable.includes(column)
+    },
+    update () {
+      axios.patch(`${this.endpoint}/${this.editing.id}`, this.editing.form).then(() => {
+        this.getRecords().then(() => {
+          this.editing.id = null
+          this.editing.form = {}
+        })
+      }).catch((error) => {
+        this.editing.errors = error.response.data.errors
+      })
     }
   },
   mounted() {

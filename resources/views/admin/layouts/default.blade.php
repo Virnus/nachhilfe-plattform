@@ -9,7 +9,7 @@
                         General
                     </p>
                     <ul class="menu-list">
-                        <li><a href="{{ route('account') }}" class="{{ on_page('account') ? 'is-active' : '' }}">Dashboard</a></li>
+                        <!-- <li><a href="{{ route('account') }}" class="{{ on_page('account') ? 'is-active' : '' }}">Dashboard</a></li> -->
                     </ul>
                     <p class="menu-label">
                         Benutzerverwaltung
@@ -40,12 +40,12 @@
                 <nav class="card">
                     <header class="card-header">
                         <p class="card-header-title">
-                            @yield('account.title')
+                            @yield('admin.title')
                         </p>
                     </header>
 
                     <div class="card-content">
-                        @yield('account.content')
+                        @yield('admin.content')
                     </div>
                 </nav>
             </div>

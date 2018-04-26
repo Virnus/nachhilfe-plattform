@@ -14,12 +14,21 @@ class UserController extends DataTableController
 
     public function getDisplayableColumns() {
       return [
-        'id', 'name', 'email', 'created_at'
+        'id', 'name', 'email', 'ausbildung_id', 'role_id'
       ];
     }
     public function getUpdatableColumns() {
       return [
-        'name', 'email', 'created_at'
+        'name', 'email', 'ausbildung_id', 'role_id'
       ];
+    }
+    public function update($id, Request $request) {
+      $this->validate($request, [
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email'
+
+      ]);
+
+      $this->builder->find($id)->update($request->only($this->getUpdatableColumns()));
     }
 }

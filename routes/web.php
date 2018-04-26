@@ -42,6 +42,8 @@ Route::resource('datatable/users', 'DataTable\UserController');
 
 Route::get('/admin/users', 'Admin\UserController@index');
 
+Route::get('/admin', 'Admin\AdminController@index');
+
 // Auth
 Auth::routes();
 
