@@ -36,7 +36,7 @@
                                         {{ $lernzentrum->room }}
                                     </p>
                                     <h4>Freie Plätze:</h4>
-                                    <progress class="progress is-primary" value="{{ $lernzentrum->users()->count() }}" max="{{ $lernzentrum->max_participants }}">12</progress>
+                                    <progress class="progress is-primary" value="{{ $lernzentrum->anmeldungen()->count() }}" max="{{ $lernzentrum->max_participants }}">12</progress>
                                 </div>
                             </div>
                             <div class="column is-4">
@@ -46,11 +46,10 @@
                                     <h4>Unterstütung:</h4>
                                     @each('layouts.partials._user-badge', $lernzentrum->assistants, 'user')
                                 </div>
-                                <form action="{{ route('lernzentrum.signup', [$lernzentrum->id]) }}" method="post">
-                                    {{ csrf_field() }}
-
-                                    <button class="button is-primary is-fullwidth" type="submit" name="button">Anmelden</button>
-                                </form>
+                                <lernzentrum-anmeldung
+                                    angemeldet="{{ $lernzentrum->isSignUp(auth()->user()) }}"
+                                    action="{{ route('lernzentrum.detail', [$lernzentrum->id]) }}"
+                                    base="{{ url('/') }}" />
                             </div>
                         </div>
                     </div>

@@ -13,7 +13,8 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (auth()->user()->lernzentrums as $lernzentrum)
+            @foreach ($anmeldungen as $anmeldung)
+                @php ($lernzentrum = $anmeldung->lernzentrum)
                 <tr>
                     <td>{{ $lernzentrum->date }}</td>
                     <td>{{ $lernzentrum->teacher->name }}</td>

@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class Lernzentrum extends Model
 {
-    protected $fillable = [];
+    protected $fillable = ['date', 'info', 'room', 'teacher_id', 'max_participants'];
 
     protected $dates = ['date'];
 
@@ -16,18 +16,25 @@ class Lernzentrum extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function anmeldungen()
+    {
+        return $this->hasMany(Anmeldung::class);
+    }
+
     public function assistants()
     {
         return $this->belongsToMany(User::class, 'assistant_lernzentrum', 'lernzentrum_id', 'assistant_id');
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class);
-    }
-
     public function scopeIsFuture($builder)
     {
         return $builder->where('date', '>=', Carbon::now());
+    }
+
+    public function isSignUp(User $user)
+    {
+        $anmeldung = $user->anmeldungen()->where('lernzentrum_id', $this->id)->first();
+
+        return $this->anmeldungen->contains($anmeldung);
     }
 }

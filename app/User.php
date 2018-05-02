@@ -39,9 +39,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Lernzentrum::class, 'assistant_lernzentrum', 'assistant_id', 'lernzentrum_id');
     }
 
-    public function lernzentrums()
+    public function anmeldungen()
     {
-        return $this->belongsToMany(Lernzentrum::class);
+        return $this->hasMany(Anmeldung::class);
     }
 
     public function hasRole($role)

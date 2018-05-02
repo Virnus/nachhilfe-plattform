@@ -16,7 +16,8 @@ class UserTableSeeder extends Seeder
           'email' => 'seralichtenhahn@gmail.com',
           'password' =>  bcrypt('123456'),
           'remember_token' => str_random(10),
-          'active' => true
+          'active' => true,
+          'role_id' => 2
         ]);
 
         App\User::create([

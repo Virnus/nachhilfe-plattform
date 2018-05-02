@@ -9,6 +9,7 @@ class LernzentrumController extends Controller
 {
     public function index(Request $request)
     {
-        return view('account.lernzentrum');
+        return view('account.lernzentrum')
+            ->with('anmeldungen', auth()->user()->anmeldungen);
     }
 }

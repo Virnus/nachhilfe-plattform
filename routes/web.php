@@ -38,6 +38,22 @@ Route::middleware(['auth'])->group(function() {
     });
 });
 
+Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
+
+    // Lehrer Bereich
+    Route::middleware(['role:lehrer'])->group(function() {
+
+        // Lernzentrum
+        Route::resource('/lernzentrum', 'LernzentrumController');
+    });
+});
+
+// WebApi
+Route::group(['middleware' => 'auth', 'namespace' => 'api', 'prefix' => 'webapi'], function() {
+    Route::get('/topics', 'TopicController@index')->name('api.topic');
+    Route::get('/subjects', 'SubjectController@index')->name('api.subject');
+});
+
 Route::resource('datatable/users', 'DataTable\UserController');
 
 Route::get('/admin/users', 'Admin\UserController@index');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateThemasTable extends Migration
+class CreateAnmeldungTopicTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateThemasTable extends Migration
      */
     public function up()
     {
-        Schema::create('themas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::create('anmeldung_topic', function (Blueprint $table) {
+            $table->integer('anmeldung_id')->unsigned();
+            $table->integer('topic_id')->unsigned();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateThemasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('themas');
+        Schema::dropIfExists('anmeldung_topic');
     }
 }

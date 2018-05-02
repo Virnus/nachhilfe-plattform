@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Lehrer'],
             ['name' => 'Schueler']
         ]);
+
         DB::table('ausbildungs')->insert([
           ['name' => 'WMS'],
           ['name' => 'GYM'],
@@ -26,5 +27,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserTableSeeder::class);
         $this->call(LernzentrumSeeder::class);
+        $this->call(SubjectSeeder::class);
+        $this->call(TopicSeeder::class);
     }
 }
