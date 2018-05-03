@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers\Datatable;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+use App\Subject;
+
+class SubjectController extends DataTableController
+{
+    public function builder() {
+      return Subject::query();
+    }
+
+    public function getDisplayableColumns() {
+      return [
+        'id', 'name'
+      ];
+    }
+    public function getUpdatableColumns() {
+      return [
+        'name'
+      ];
+    }
+    public function update($id, Request $request) {
+      $this->validate($request, [
+        'name' => 'required',
+      ]);
+
+      $this->builder->find($id)->update($request->only($this->getUpdatableColumns()));
+    }
+}

@@ -45,6 +45,26 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
 
         // Lernzentrum
         Route::resource('/lernzentrum', 'LernzentrumController');
+
+        // Topics
+        Route::get('/topics', 'TopicController@index');
+
+        // Subjects
+        Route::get('/subjects', 'SubjectController@index');
+    });
+});
+
+// Datatable Rescources
+Route::group(['namespace' => 'datatable', 'prefix' => 'datatable', 'as' => 'datatable.'], function() {
+
+    // Add Middleware for Admin and Lehrer
+    Route::middleware(['role:lehrer,admin'])->group(function() {
+
+        // Topics
+        Route::resource('/topics', 'TopicController');
+
+        // Subjects
+        Route::resource('/subjects', 'SubjectController');
     });
 });
 
