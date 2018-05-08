@@ -1,54 +1,55 @@
 # ToDo
 
-- Rollenverteilung
+*   Rollenverteilung
 
-- Glossar
-- Dokumentation
+*   Glossar
+*   Dokumentation
 
 ## Oliver
-- Adminverwaltung
-- Angebote
-- Account
 
+*   Adminverwaltung
+*   Angebote
 
 ## Serafin
-- Adminverwaltung
-- Lernzentrum
-- Suche
+
+*   Adminverwaltung
+*   Lernzentrum
+*   Suche
+*   Account
 
 ## Routes
 
-* /
-  * /
-* /lernzentrum (Serafin)
-  * /{lernzentrum}
-    * /signup
-    * /signout
-* /account
-  * /profile  (Serafin)
-  * /password (Serafin)
-  * /angebote (Oliver)
-    * /create
-    * /update
-    * /delete
-  * /lernzentrum (Serafin)
-    * /aufgebote
-* /admin
-  * /users  (Oliver)
-    * /create
-    * /{user}
-      * /update
-      * /delete
-  * /lernzentrum (Serafin)
-    * /create
-    * /{lernzentrum}
-      * /update
-      * /delete
-  * /angebote (Oliver)
-    * /{angebot}
-      * /update
-      * /delete
-* /webapi  (Serafin)
-  * /search
-  * /subject (used for autocomplete)
-  * /topic (used for autocomplete)
+*   /
+    *   /
+*   /lernzentrum (Serafin)
+    *   /{lernzentrum}
+        *   /signup
+        *   /signout
+*   /account
+    *   /profile (Serafin)
+    *   /password (Serafin)
+    *   /angebote (Oliver)
+        *   /create
+        *   /update
+        *   /delete
+    *   /lernzentrum (Serafin)
+        *   /aufgebote
+*   /admin
+    *   /users (Oliver)
+        *   /create
+        *   /{user}
+            *   /update
+            *   /delete
+    *   /lernzentrum (Serafin)
+        *   /create
+        *   /{lernzentrum}
+            *   /update
+            *   /delete
+    *   /angebote (Oliver)
+        *   /{angebot}
+            *   /update
+            *   /delete
+*   /webapi (Serafin)
+    *   /search
+    *   /subject (used for autocomplete)
+    *   /topic (used for autocomplete)
