@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('section_title', 'Lernzentrum')
+
 @section('content')
     <section class="hero is-medium is-primary is-bold">
         <div class="hero-body">

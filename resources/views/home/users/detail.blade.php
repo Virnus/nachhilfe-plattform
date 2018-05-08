@@ -12,7 +12,14 @@
                         <h1 class="title is-size-1 has-text-weight-light">{{ $user->name }}</h1>
                         <div class="user-header__infos">
                             <p class="is-size-4">
-                                <span class="ausbildung has-text-light">{{ $user->ausbildung }}</span> &#8226; <span class="tag is-info is-medium">verifiziert</span>
+                                <span class="ausbildung has-text-light">{{ $user->ausbildung }}</span>
+                                @if ($user->verified)
+                                    &#8226;
+                                    <span class="tag is-info is-medium">
+                                        <svg class="user-header__icon"><use xlink:href="#icon-check"></use></svg>
+                                        verifiziert
+                                    </span>
+                                @endif
                             </p>
                         </div>
                     </div>

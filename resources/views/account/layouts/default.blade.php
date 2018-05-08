@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('section_title', 'Account')
+
 @section('content')
     <div class="container">
         <div class="columns is- is-marginless">
