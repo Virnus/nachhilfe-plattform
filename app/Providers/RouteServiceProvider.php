@@ -23,14 +23,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Route::bind('user', function ($value) {
-            if (strlen($value) > 6) {
-                return \App\User::where('email', 'LIKE', $value . '%' )->first();
-            }
-
-            return abort(404);
-        });
-
         parent::boot();
     }
 
