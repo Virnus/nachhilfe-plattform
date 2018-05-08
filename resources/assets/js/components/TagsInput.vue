@@ -1,12 +1,14 @@
 <template>
     <div>
-        <div class="input tags-input'">
-            <div class="controls"
-                v-for="(badge, index) in tagBadges"
-                :key="index">
-                <div class="tags has-addons">
-                    <span class="tag is-active" v-html="badge"></span>
-                    <a class="tag is-delete" @click.prevent="removeTag(index)"></a>
+        <div class="input tags-input no-fixed-height">
+            <div class="field is-grouped is-grouped-multiline">
+                <div class="controls"
+                    v-for="(badge, index) in tagBadges"
+                    :key="index">
+                    <div class="tags has-addons">
+                        <span class="tag is-active" v-html="badge"></span>
+                        <a class="tag is-delete" @click.prevent="removeTag(index)"></a>
+                    </div>
                 </div>
             </div>
 

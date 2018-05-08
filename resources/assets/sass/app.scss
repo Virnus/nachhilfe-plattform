@@ -28,6 +28,27 @@
 
     a {
         line-height: 32px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    &__icon {
+        background-color: $blue;
+        border-radius: 50%;
+        line-height: 32px;
+        margin: 4px 0 16px 3px;
+        height: 12px;
+        width: 12px;
+        position: relative;
+
+        svg {
+            position: absolute;
+            color: $white;
+            margin: 2px;
+            width: 8px;
+            height: 8px;
+        }
     }
 }
 
@@ -85,4 +106,14 @@
     &__infos {
         line-height: 1.5;
     }
+
+    &__icon {
+        width: 13px;
+        height: 13px;
+        margin-right: 5px;
+    }
+}
+
+.no-fixed-height {
+    height: auto !important;
 }
