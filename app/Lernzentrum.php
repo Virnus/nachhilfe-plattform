@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
@@ -24,6 +25,11 @@ class Lernzentrum extends Model
     public function assistants()
     {
         return $this->belongsToMany(User::class, 'assistant_lernzentrum', 'lernzentrum_id', 'assistant_id');
+    }
+
+    public function scopeFilter(Builder $builder)
+    {
+        return $builder;
     }
 
     public function scopeIsFuture($builder)

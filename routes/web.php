@@ -20,6 +20,10 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/lernzentrum/{lernzentrum}/signup', 'Home\\LernzentrumController@signup')->name('lernzentrum.signup');
     Route::post('/lernzentrum/{lernzentrum}/signout', 'Home\\LernzentrumController@signout')->name('lernzentrum.signout');
 
+    // UserProfile
+    Route::get('/users/{user}', 'Home\\UserController@detail')->name('user.detail');
+    Route::post('/users/{user}', 'Home\\UserController@store')->name('user.store');
+
     // Account
     Route::group(['namespace' => 'account', 'prefix' => 'account'], function() {
         Route::get('/', 'AccountController@index')->name('account');
@@ -41,7 +45,7 @@ Route::middleware(['auth'])->group(function() {
 Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
 
     // Lehrer Bereich
-    Route::middleware(['role:lehrer'])->group(function() {
+    Route::middleware(['auth', 'role:lehrer,admin'])->group(function() {
 
         // Lernzentrum
         Route::resource('/lernzentrum', 'LernzentrumController');
@@ -58,7 +62,7 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
 Route::group(['namespace' => 'datatable', 'prefix' => 'datatable', 'as' => 'datatable.'], function() {
 
     // Add Middleware for Admin and Lehrer
-    Route::middleware(['role:lehrer,admin'])->group(function() {
+    Route::middleware(['auth', 'role:lehrer,admin'])->group(function() {
 
         // Topics
         Route::resource('/topics', 'TopicController');
@@ -69,9 +73,10 @@ Route::group(['namespace' => 'datatable', 'prefix' => 'datatable', 'as' => 'data
 });
 
 // WebApi
-Route::group(['middleware' => 'auth', 'namespace' => 'api', 'prefix' => 'webapi'], function() {
-    Route::get('/topics', 'TopicController@index')->name('api.topic');
-    Route::get('/subjects', 'SubjectController@index')->name('api.subject');
+Route::group(['middleware' => 'auth', 'namespace' => 'api', 'prefix' => 'webapi', 'as' => 'api.'], function() {
+    Route::get('/topics', 'TopicController@index')->name('topic');
+    Route::get('/subjects', 'SubjectController@index')->name('subject');
+    Route::get('/search', 'SearchController@index')->name('search');
 });
 
 Route::resource('datatable/users', 'DataTable\UserController');

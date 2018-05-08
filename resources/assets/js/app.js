@@ -1,13 +1,12 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
 
-window.Vue = require('vue');
+window.Vue = require('vue')
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -19,6 +18,7 @@ Vue.component('data-table', require('./components/DataTable.vue'))
 Vue.component('lernzentrum-status', require('./components/LernzentrumStatus.vue'))
 Vue.component('lernzentrum-anmeldung', require('./components/LernzentrumAnmeldung.vue'))
 Vue.component('tags-input', require('./components/TagsInput.vue'))
+Vue.component('contact-modal', require('./components/ContactModal.vue'))
 
 const app = new Vue({
     el: '#app'
