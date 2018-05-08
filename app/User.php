@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active', 'activation_token'
+        'name', 'email', 'password', 'ausbildung', 'role', 'verified', 'active', 'activation_token'
     ];
 
     /**
@@ -28,6 +28,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $casts = [
+       'verified' => 'boolean',
+       'active' => 'boolean',
+   ];
+
+    public function getUsernameAttribute()
+    {
+        return str_before($this->email, '@');
+    }
 
     public function angebote()
     {
@@ -46,7 +56,12 @@ class User extends Authenticatable
 
     public function hasRole($role)
     {
-        return $role === lcfirst(DB::table('roles')->where('id', $this->role_id)->first()->name);
+        return $role === $this->role;
+    }
+
+    public function scopeFilter(Builder $builder)
+    {
+        return $builder;
     }
 
     public function scopeByActivationColumns(Builder $builder, $email, $token)

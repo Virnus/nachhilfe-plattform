@@ -17,7 +17,8 @@ class UserTableSeeder extends Seeder
           'password' =>  bcrypt('123456'),
           'remember_token' => str_random(10),
           'active' => true,
-          'role_id' => 2
+          'role' => 'admin',
+          // 'ausbildung' => '',
         ]);
 
         App\User::create([
@@ -25,7 +26,9 @@ class UserTableSeeder extends Seeder
           'email' => 'olivergrun.og@gmail.com',
           'password' =>  bcrypt('123456'),
           'remember_token' => str_random(10),
-          'active' => true
+          'active' => true,
+          'role' => 'admin',
+          // 'ausbildung' => '',
         ]);
 
         factory(App\User::class, 100)->create()->each(function($user)

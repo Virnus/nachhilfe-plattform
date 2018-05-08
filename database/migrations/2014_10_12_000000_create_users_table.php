@@ -18,15 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('ausbildung_id')->unsigned()->nullable();
-            $table->integer('role_id')->default(3)->unsigned();
+            $table->enum('ausbildung', ['GYM', 'WMS', 'IMS'])->nullable();
+            $table->enum('role', ['admin', 'lehrer', 'schueler']);
+            $table->boolean('verified')->default(false);
             $table->boolean('active')->default(false);
             $table->string('activation_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
-            $table->foreign('role_id')->references('id')->on('roles');
-            $table->foreign('ausbildung_id')->references('id')->on('ausbildungs');
         });
     }
 
