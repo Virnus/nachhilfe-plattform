@@ -44,6 +44,11 @@ class User extends Authenticatable
         return $this->hasMany(Angebot::class);
     }
 
+    public function isNotSchueler()
+    {
+        return $this->role !== 'schueler';
+    }
+
     public function assistants()
     {
         return $this->belongsToMany(Lernzentrum::class, 'assistant_lernzentrum', 'assistant_id', 'lernzentrum_id');

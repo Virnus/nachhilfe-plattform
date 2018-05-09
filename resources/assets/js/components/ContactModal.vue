@@ -2,7 +2,7 @@
     <div class="contact-modal">
         <button class="button is-primary is-outlined is-fullwidth" @click="openModal">Kontaktieren</button>
         <div class="modal" :class="{ 'is-active': isActive }">
-            <div class="modal-background"></div>
+            <div class="modal-background" @click.prevent="closeModal"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Nachricht an {{ name }}</p>
