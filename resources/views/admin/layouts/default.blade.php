@@ -39,7 +39,7 @@
             <div class="column is-9">
                 @include('layouts.partials._alert')
 
-                <nav class="card">
+                <div class="card">
                     <header class="card-header">
                         <p class="card-header-title">
                             @yield('admin.title')
@@ -49,7 +49,7 @@
                     <div class="card-content">
                         @yield('admin.content')
                     </div>
-                </nav>
+                </div>
             </div>
         </div>
     </div>

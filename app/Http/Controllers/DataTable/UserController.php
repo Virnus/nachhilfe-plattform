@@ -17,9 +17,9 @@ class UserController extends DataTableController
 
     public function getDisplayableColumns()
     {
-      return [
-        'id', 'name', 'email', 'ausbildung', 'role', 'verified'
-      ];
+        return [
+            'id', 'name', 'email', 'ausbildung', 'role', 'verified', 'active'
+        ];
     }
 
     public function getCustomColumnNames() {
@@ -30,40 +30,56 @@ class UserController extends DataTableController
             'ausbildung' => 'Ausbildung',
             'role' => 'Rolle',
             'password' => 'Passwort',
-            'verified' => 'verifiziert',
+            'verified' => 'Verifiziert',
+            'active' => 'Aktiv'
         ];
     }
 
     public function getUpdatableColumns()
     {
         return [
-        'name', 'email', 'ausbildung', 'role', 'password', 'verified'
-      ];
+            'name', 'email', 'ausbildung', 'password', 'role', 'verified', 'active'
+        ];
     }
+
+    public function getCustomColumnTypes()
+    {
+        return [
+            'name' => 'text',
+            'email' => 'email',
+            'ausbildung' => 'select|GYM,WMS,IMS',
+            'role' => 'select|schueler,lehrer,admin',
+            'password' => 'password',
+            'verified' => 'checkbox',
+            'active' => 'checkbox',
+        ];
+    }
+    
     public function update($id, Request $request)
     {
-        $this->validate($request, [
-        'name' => 'required',
-        'email' => 'required|string|email|max:255|unique:users,email,' . $id
-
-      ]);
+        $this->_validate($request);
 
         $this->builder->find($id)->update($request->only($this->getUpdatableColumns()));
     }
-    public function store(Request $request) {
 
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|string|email|max:255|unique:users,email,',
-            'ausbildung' => 'string|in:GYM,WMS,IMS',
-            'role' => 'required|string|in:schueler,lehrer,admin',
-            'password' => 'required'
-        ]);
+    public function store(Request $request) {
+        $this->_validate($request);
 
         if(!$this->allowCreation) {
             return;
         }
 
+        $request->merge(['password' => bcrypt($request->password)]);
+
         $this->builder->create($request->only($this->getUpdatableColumns()));
+    }
+
+    private function _validate(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|string|email|max:255|unique:users,email,',
+            'ausbildung' => 'string|in:GYM,WMS,IMS',
+            'role' => 'required|string|in:schueler,lehrer,admin',
+        ]);
     }
 }

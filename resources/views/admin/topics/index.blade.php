@@ -1,7 +1,5 @@
-@extends('admin.layouts.default')
-
-@section('admin.title', 'Topics')
+@extends('admin.layouts.blank')
 
 @section('admin.content')
-    <data-table endpoint="{{ route('datatable.topics.index') }}"></data-table>
+    <data-table endpoint="{{ route('datatable.topics.index') }}" title="Topics"></data-table>
 @endsection
