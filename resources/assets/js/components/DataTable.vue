@@ -23,7 +23,7 @@
         </div>
     </div>
         <form action="#" @submit.prevent="getRecords">
-            <label for="search">Search</label>
+            <label class="label" for="search">Search</label>
                 <div class="field">
                     <div class="columns">
                         <div class="column is-3">
@@ -55,65 +55,76 @@
                             </div>
                     </div>
                 </div>
-        </form>
-    <div class="field">
-        <div class="control">
-            <label class="label" for="filter">Quick search current results</label>
-            <input type="text" id="filter" class="input" v-model="quickSearchQuery">
+            </form>
+        <div class="field">
+            <div class="control">
+                <label class="label" for="filter">Quick search current results</label>
+                <input type="text" id="filter" class="input" v-model="quickSearchQuery">
+            </div>
         </div>
-      </div>
+        <div class="field">
+            <label class="label" for="limit">Display records</label>
+            <div class="control">
+                <div class="select">
+                    <select class="is-fullwidth" id="limit" v-model="limit" @change="getRecords">
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="500">500</option>
+                        <option value="">All</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
-      <table class="table is-striped is-fullwidth is-responsive">
-        <thead>
-          <tr>
-            <th v-for="column in response.displayable">
-              <span class="sortable" @click="sortBy(column)">{{ response.custom_columns[column] || column }}</span>
+        <table class="table is-striped is-fullwidth is-responsive">
+            <thead>
+                <tr>
+                    <th v-for="column in response.displayable">
+                        <span class="sortable" @click="sortBy(column)">
+                            {{ response.custom_columns[column] || column }}
+                        </span>
+                        <div class="arrow" v-if="sort.key === column" :class="{'arrow--asc': sort.order === 'asc', 'arrow--desc': sort.order === 'desc'}"></div>
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="record in filteredRecords">
+                    <td v-for="columnValue, column in record">
+                        <template v-if="editing.id === record.id && isUpdatable(column)">
+                            <div class="field">
+                                <input type="text" class="input" :class="{'input is-danger': editing.errors[column]}" v-model="editing.form[column]">
+                                <p class="help is-danger" v-if="editing.errors[column]">
+                                    {{editing.errors[column][0]}}
+                                </p>
+                            </div>
+                        </template>
+                        <template v-else>
+                            {{columnValue}}
+                        </template>
+                    </td>
+                    <td>
+                        <a href="#" class="button is-info" @click.prevent="edit(record)" v-if="editing.id !== record.id">Bearbeiten</a>
 
-              <div class="arrow" v-if="sort.key === column" :class="{'arrow--asc': sort.order === 'asc', 'arrow--desc': sort.order === 'desc'}"></div>
-            </th>
-            <th>
-              &nbsp;
-            </th>
-            <th>
-              &nbsp;
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="record in filteredRecords">
-            <td v-for="columnValue, column in record">
-
-              <template v-if="editing.id === record.id && isUpdatable(column)">
-                  <div class="field">
-                    <input type="text" class="input" :class="{'input is-danger': editing.errors[column]}" v-model="editing.form[column]">
-                    <p class="help is-danger" v-if="editing.errors[column]">
-                      {{editing.errors[column][0]}}
-                      </p>
-                  </div>
-                </template>
-              <template v-else>
-                  {{columnValue}}
-              </template>
-
-
-            </td>
-            <td>
-              <a href="#" class="button is-info" @click.prevent="edit(record)" v-if="editing.id !== record.id">Bearbeiten</a>
-
-              <template v-if="editing.id === record.id">
-                  <div class="field has-addons is-fullwidth">
-                      <a href="#" class="button is-success" @click.prevent="update">Save</a>
-                      <a href="#" class="button is-warning" @click.prevent="editing.id = null">Cancel</a>
-                  </div>
-                </template>
-            </td>
-            <td>
-                <a href="#" class="button is-danger" @click.prevent="destroy(record.id)" v-if="response.allow.deletion">Löschen</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-  </div>
+                        <template v-if="editing.id === record.id">
+                            <div class="field has-addons is-fullwidth">
+                                <a href="#" class="button is-success" @click.prevent="update">Save</a>
+                                <a href="#" class="button is-warning" @click.prevent="editing.id = null">Cancel</a>
+                            </div>
+                        </template>
+                    </td>
+                    <td>
+                        <a href="#" class="button is-danger" @click.prevent="destroy(record.id)" v-if="response.allow.deletion">Löschen</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
 
 <script>
@@ -134,6 +145,7 @@ export default {
                 order: 'asc'
             },
             quickSearchQuery: '',
+            limit: 50,
             editing: {
                 id: null,
                 errors: [],
@@ -183,6 +195,7 @@ export default {
         },
         getQueryParameters () {
                 return queryString.stringify({
+                    limit: this.limit,
                     ...this.search
                 })
             },
