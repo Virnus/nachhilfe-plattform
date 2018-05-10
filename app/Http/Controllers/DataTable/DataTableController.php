@@ -19,29 +19,30 @@ abstract class DataTableController extends Controller
     abstract public function builder();
 
     public function __construct() {
-      $builder = $this->builder();
+        $builder = $this->builder();
 
-       if (!$builder instanceof Builder) {
-         throw new Exception('Entity builder not instance of Builder');
-      }
-      $this->builder = $builder;
+        if (!$builder instanceof Builder) {
+            throw new Exception('Entity builder not instance of Builder');
+        }
+        $this->builder = $builder;
 
     }
 
     public function index(Request $request) {
-      return response()->json([
-        'data' => [
-          'table' => $this->builder->getModel()->getTable(),
-          'displayable' => array_values($this->getDisplayableColumns()),
-          'updatable' => array_values($this->getUpdatableColumns()),
-          'records' => $this->getRecords($request),
-          'custom_columns' => $this->getCustomColumnNames(),
-          'allow' => [
-              'creation' => $this->allowCreation,
-              'deletion' => $this->allowDeletion,
-          ]
-        ]
-      ]);
+        return response()->json([
+            'data' => [
+                'table' => $this->builder->getModel()->getTable(),
+                'displayable' => array_values($this->getDisplayableColumns()),
+                'updatable' => array_values($this->getUpdatableColumns()),
+                'records' => $this->getRecords($request),
+                'custom_types' => $this->getCustomColumnTypes(),
+                'custom_columns' => $this->getCustomColumnNames(),
+                'allow' => [
+                    'creation' => $this->allowCreation,
+                    'deletion' => $this->allowDeletion,
+                ]
+            ]
+        ]);
     }
 
     public function update($id, Request $request) {
@@ -69,6 +70,10 @@ abstract class DataTableController extends Controller
     }
 
     public function getCustomColumnNames() {
+        return [];
+    }
+
+    public function getCustomColumnTypes() {
         return [];
     }
 
