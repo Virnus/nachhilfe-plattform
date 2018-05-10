@@ -45,6 +45,23 @@
               @endif
           </div>
 
+          <div class="field">
+              <label class="label">Ausbildung</label>
+              <div class="control">
+                  <div class="select is-fullwidth{{ $errors->has('ausbildung') ? ' is-danger' : '' }}">
+                      <select id="ausbildung" name="ausbildung" value="{{ old('ausbildung') }}">
+                        <option value="GYM">GYM</option>
+                        <option value="WMS">WMS</option>
+                        <option value="IMS">IMS</option>
+                      </select>
+                    </div>
+              </div>
+              @if ($errors->has('ausbildung'))
+                <p class="help is-danger">
+                    {{ $errors->first('ausbildung') }}
+                </p>
+              @endif
+          </div>
 
           <div class="field">
               <label class="label">Password</label>
