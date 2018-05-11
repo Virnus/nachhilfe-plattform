@@ -45,7 +45,6 @@ class UserController extends DataTableController
     public function getCustomColumnTypes()
     {
         return [
-            'name' => 'text',
             'email' => 'email',
             'ausbildung' => 'select|GYM,WMS,IMS',
             'role' => 'select|schueler,lehrer,admin',
@@ -54,10 +53,10 @@ class UserController extends DataTableController
             'active' => 'checkbox',
         ];
     }
-    
+
     public function update($id, Request $request)
     {
-        $this->_validate($request);
+        $this->_validate($request, $id);
 
         $this->builder->find($id)->update($request->only($this->getUpdatableColumns()));
     }
@@ -74,10 +73,10 @@ class UserController extends DataTableController
         $this->builder->create($request->only($this->getUpdatableColumns()));
     }
 
-    private function _validate(Request $request) {
+    private function _validate(Request $request, $id = 0) {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|string|email|max:255|unique:users,email,',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'ausbildung' => 'string|in:GYM,WMS,IMS',
             'role' => 'required|string|in:schueler,lehrer,admin',
         ]);

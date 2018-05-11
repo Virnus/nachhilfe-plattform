@@ -1,6 +1,13 @@
 @extends('admin.layouts.default')
 
-@section('admin.title', 'Lernzentrum')
+@section('admin.title')
+    Lernzentrum
+    <div class="card-header-icon">
+        <a href="{{ route('admin.lernzentrum.create') }}" class="button is-info is-small">
+            Neuer Eintrag
+        </a>
+    </div>
+@endsection
 
 @section('admin.content')
     <table class="table is-hoverable is-fullwidth is-responsive">

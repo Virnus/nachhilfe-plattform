@@ -1,6 +1,6 @@
 @extends('admin.layouts.default')
 
-@section('admin.title', 'Lernzentrum bearbeiten')
+@section('admin.title', 'Lernzentrum erstellen')
 
 @section('admin.content')
     <form action="{{ route('admin.lernzentrum.store') }}" method="post">

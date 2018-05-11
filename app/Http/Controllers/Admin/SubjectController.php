@@ -8,6 +8,6 @@ use App\Http\Controllers\Controller;
 class SubjectController extends Controller
 {
     public function index() {
-      return view('admin.subjects.index');
+        return view('admin.subjects.index');
     }
 }

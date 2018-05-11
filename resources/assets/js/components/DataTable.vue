@@ -17,7 +17,7 @@
                         <form action="#" class="control" @submit.prevent="store">
                             <div class="field" v-for="column in response.updatable">
                                 <label class="label" :for="column">{{ response.custom_columns[column] || column }}</label>
-                                
+
                                 <template v-if="response.custom_types[column] && response.custom_types[column].includes('select')">
                                     <div class="select is-fullwidth" :class="{'is-danger': creating.errors[column]}">
                                         <select v-model="creating.form[column]" :id="column">
@@ -28,8 +28,8 @@
                                     </div>
                                 </template>
                                 <template v-else-if="response.custom_types[column] && response.custom_types[column].includes('checkbox')">
-                                    <label class="checkbox" :class="{'is-danger': creating.errors[column]}">
-                                        <input type="checkbox" v-model="creating.form[column]" :id="column">
+                                    <input :id="column" class="switch is-rounded" :class="{'is-danger': creating.errors[column]}" type="checkbox" v-model="creating.form[column]">
+                                    <label :for="column">
                                         {{ response.custom_columns[column] || column }}?
                                     </label>
                                 </template>
@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <table class="table is-striped is-fullwidth is-responsive">
                 <thead>
                     <tr>
@@ -141,9 +141,8 @@
                                         </div>
                                     </template>
                                     <template v-else-if="response.custom_types[column] && response.custom_types[column].includes('checkbox')">
-                                        <label class="checkbox" :class="{'is-danger': editing.errors[column]}">
-                                            <input type="checkbox" v-model="editing.form[column]">
-                                        </label>
+                                        <input :id="'editing-checkbox-' + column" class="switch is-rounded is-small" :class="{'is-danger': editing.errors[column]}" type="checkbox" v-model="editing.form[column]">
+                                        <label :for="'editing-checkbox-' + column"></label>
                                     </template>
                                     <template v-else>
                                         <input :type="response.custom_types[column] || 'text'" class="input" :class="{'input is-danger': editing.errors[column]}" v-model="editing.form[column]">
@@ -159,7 +158,7 @@
                         </td>
                         <td>
                             <a href="#" class="button is-info is-small" @click.prevent="edit(record)" v-if="editing.id !== record.id">Bearbeiten</a>
-                            
+
                             <template v-if="editing.id === record.id">
                                 <div class="field is-fullwidth">
                                     <div class="buttons">
@@ -312,7 +311,7 @@ export default {
         },
         toObject(arr, int) {
             let rv = {}
-            for (var i = 0; i < arr.length; ++i) {
+            for (let i = 0; i < arr.length; ++i) {
                 const tempArr = arr[i].split(':')
                 rv[tempArr[0]] = tempArr[int]
             }
@@ -323,14 +322,6 @@ export default {
                 .split('|')
                 .pop()
                 .split(',')
-
-            if (options[0].includes(':')) {
-                console.log(this.toObject(options, 1))
-                //return this.toObject(options)
-            } else {
-                console.log(this.toObject(options, 0))
-                // return options
-            }
 
             return this.toObject(options, options[0].includes(':') ? 1 : 0)
         }

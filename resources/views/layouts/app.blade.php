@@ -34,11 +34,11 @@
                             <a class="navbar-link" href="#">@yield('section_title')</a>
 
                             <div class="navbar-dropdown">
-                                <a class="navbar-item{{ on_page('lernzentrum') ? ' is-active' : '' }}" href="{{ route('lernzentrum') }}">
+                                <a class="navbar-item{{ on_page('lernzentrum*') ? ' is-active' : '' }}" href="{{ route('lernzentrum') }}">
                                     Lernzentrum
                                 </a>
                                 @if(Auth::user()->isNotSchueler())
-                                    <a class="navbar-item{{ on_page('admin/*') ? ' is-active' : '' }}" href="{{ route('admin.lernzentrum.index') }}">
+                                    <a class="navbar-item{{ on_page('admin/*') ? ' is-active' : '' }}" href="{{ route('admin.users') }}">
                                         Admin
                                     </a>
                                 @endif

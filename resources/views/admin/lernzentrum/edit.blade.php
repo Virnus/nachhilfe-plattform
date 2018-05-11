@@ -1,6 +1,6 @@
 @extends('admin.layouts.default')
 
-@section('admin.title', 'Lernzentrum bearbeiten')
+@section('admin.title', "Lernzentrum vom {$lernzentrum->date->format('d.m.Y')} bearbeiten")
 
 @section('admin.content')
     <form action="{{ route('admin.lernzentrum.update', ['id' => $lernzentrum->id]) }}" method="post">
