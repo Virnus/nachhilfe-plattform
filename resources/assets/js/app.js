@@ -47,4 +47,18 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         })
     }
+
+    // Get all "Notification" elements
+    const $notifications = Array.prototype.slice.call(document.querySelectorAll('.notification'), 0)
+
+    // Check if there are any Notifications
+    if ($notifications.length > 0) {
+        // Add a click event on each of them
+        $notifications.forEach(function($el) {
+            $el.querySelector('.delete').addEventListener('click', function() {
+                // Remove the Notification on click
+                $el.remove()
+            })
+        })
+    }
 })
