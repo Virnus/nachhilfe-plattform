@@ -15,7 +15,13 @@ class CreateAngebotsTable extends Migration
     {
         Schema::create('angebots', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('info');
+            $table->integer('provider_id')->unsigned();
+            $table->integer('subject_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('provider_id')->references('id')->on('users');
+            $table->foreign('subject_id')->references('id')->on('subjects');
         });
     }
 
