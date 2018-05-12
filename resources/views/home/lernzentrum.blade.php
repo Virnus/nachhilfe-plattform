@@ -45,7 +45,7 @@
                                 <div class="content">
                                     <h4>Leitung:</h4>
                                     @include('layouts.partials._user-badge', ['user' => $lernzentrum->teacher])
-                                    <h4>Unterstütung:</h4>
+                                    <h4>Unterstützung:</h4>
                                     @each('layouts.partials._user-badge', $lernzentrum->assistants, 'user')
                                 </div>
                                 <lernzentrum-anmeldung
