@@ -27,9 +27,10 @@ class Lernzentrum extends Model
         return $this->belongsToMany(User::class, 'assistant_lernzentrum', 'lernzentrum_id', 'assistant_id');
     }
 
-    public function scopeFilter(Builder $builder)
+    public function scopeFilter(Builder $builder, $query)
     {
-        return $builder;
+        return $builder->where('date', 'LIKE', '%' . $query . '%')
+             ->orWhere('info', 'LIKE', '%' . $query . '%');
     }
 
     public function scopeIsFuture($builder)

@@ -117,3 +117,53 @@
 .no-fixed-height {
     height: auto !important;
 }
+
+.tags-input {
+    &.no-fixed-height {
+        min-height: 2.25em;
+    }
+
+    > input {
+        outline: 0;
+        border: none;
+    }
+}
+
+.nachhilfe-suche {
+    position: relative;
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+
+    &__records {
+        background-color: $white;
+        position: absolute;
+        z-index: 99;
+        width: 100%;
+        padding: 0;
+        box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    }
+
+    &__header {
+        padding: 8px 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__content {
+        li {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: #dcdcdc 1px solid;
+            padding: 8px 12px;
+
+            &:last-child {
+                border-bottom: #dcdcdc 1px solid;
+            }
+
+            &:hover {
+                background-color: $primary;
+                color: $white;
+            }
+        }
+    }
+}

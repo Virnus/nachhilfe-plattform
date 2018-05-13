@@ -33,7 +33,7 @@
                         <div class="navbar-item has-dropdown is-hoverable">
                             <a class="navbar-link" href="#">@yield('section_title')</a>
 
-                            <div class="navbar-dropdown">
+                            <div class="navbar-dropdown is-hidden-touch">
                                 <a class="navbar-item{{ on_page('lernzentrum*') ? ' is-active' : '' }}" href="{{ route('lernzentrum') }}">
                                     Lernzentrum
                                 </a>
@@ -58,6 +58,14 @@
                         <div class="navbar-start"></div>
 
                         <div class="navbar-end">
+                            <a class="navbar-item{{ on_page('lernzentrum*') ? ' is-active' : '' }} is-hidden-desktop" href="{{ route('lernzentrum') }}">
+                                Lernzentrum
+                            </a>
+                            @if(Auth::user()->isNotSchueler())
+                                <a class="navbar-item{{ on_page('admin/*') ? ' is-active' : '' }} is-hidden-desktop" href="{{ route('admin.users') }}">
+                                    Admin
+                                </a>
+                            @endif
                             <div class="navbar-item has-dropdown is-hoverable">
                                 <a class="navbar-link" href="#">{{ Auth::user()->name }}</a>
 

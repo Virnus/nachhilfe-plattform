@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Angebot extends Model
 {
@@ -23,5 +24,10 @@ class Angebot extends Model
         return $this->belongsToMany(Topic::class, 'angebot_topic');
     }
 
-    
+    public function scopeFilter(Builder $builder, $query)
+    {
+        return $builder->where('info', 'LIKE', '%' . $query . '%');
+    }
+
+
 }

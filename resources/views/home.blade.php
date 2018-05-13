@@ -10,7 +10,7 @@
                     <div class="column is-4">
                     </div>
                     <div class="column is-4">
-                        <input type="search" class="input" placeholder="Suchen..." />
+                        <nachhilfe-suche endpoint="{{ url('/') }}" />
                     </div>
                     <div class="column is-4">
                     </div>

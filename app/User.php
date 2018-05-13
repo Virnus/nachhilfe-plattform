@@ -64,9 +64,14 @@ class User extends Authenticatable
         return $role === $this->role;
     }
 
-    public function scopeFilter(Builder $builder)
+    public function scopeFilter(Builder $builder, $query)
     {
-        return $builder;
+        return $builder->where('name', 'LIKE', '%' . $query . '%');
+    }
+
+    public function scopeIsActive(Builder $builder)
+    {
+        return $builder->where('active', true);
     }
 
     public function scopeByActivationColumns(Builder $builder, $email, $token)

@@ -27,12 +27,14 @@
                         <div class="field">
                             <label class="label">In welchem Fach möchtest du dich verbessern?</label>
                             <div class="control">
-                                <select class="select is-fullwidth" v-model="subject" name="subject_id">
-                                    <option value="">Wählen ein Fach aus</option>
-                                    <option v-for="subject in response.subjects" :value="subject.id">
-                                        {{ subject.name }}
-                                    </option>
-                                </select>
+                                <div class="select is-fullwidth">
+                                    <select v-model="subject" name="subject_id">
+                                        <option value="">Wählen ein Fach aus</option>
+                                        <option v-for="subject in response.subjects" :value="subject.id">
+                                            {{ subject.name }}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="field">
