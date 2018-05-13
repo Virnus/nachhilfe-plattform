@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('section_title', 'Angebote')
+@section('section_title', 'Home')
 
 @section('content')
 <section class="hero is-medium is-primary is-bold">
@@ -69,9 +69,11 @@
                         <article class="media">
                             <div class="media-content">
                                 <div class="content">
+                                    @foreach ($angebot->topics as $topic)
                                     <h4>
-                                        {{ $angebot->subject->name }}: Thema, Thema1
+                                        {{ $angebot->subject->name }}: {{ $topic->name }}
                                     </h4>
+                                    @endforeach
                                     <p>
                                     @include('layouts.partials._user-badge', ['user' => $angebot->provider])
                                     </p>

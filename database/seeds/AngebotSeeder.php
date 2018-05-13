@@ -12,9 +12,9 @@ class AngebotSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Angebot::class, 10)->create()->each(function($angebot)
+        factory(App\Angebot::class, 50)->create()->each(function($angebot)
         {
-          $angebot->save();
+          $angebot->topics()->save(factory(App\Topic::class)->make());
         });
     }
 }
