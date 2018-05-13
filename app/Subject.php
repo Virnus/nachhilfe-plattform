@@ -14,4 +14,9 @@ class Subject extends Model
     {
         return $this->hasMany(Topic::class);
     }
+
+    public function angebote()
+    {
+        return $this->hasMany(Angebot::class);
+    }
 }

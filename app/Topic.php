@@ -14,6 +14,11 @@ class Topic extends Model
         return $this->belongsTo(Subject::class);
     }
 
+    public function angebote()
+    {
+        return $this->belongsToMany(Angebot::class);
+    }
+
     public function anmeldungen()
     {
         return $this->belongsToMany(Anmeldung::class);

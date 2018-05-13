@@ -6,10 +6,32 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
+use App\Angebot;
+use App\Lernzentrum;
+use App\Subject;
+
+
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        return view('home');
-    }
+        $lernzentrum = Lernzentrum::isFuture()->orderBy('date', 'asc')->first();
+
+        $angebots= Angebot::all();
+
+
+        $subjects = Subject::all();
+
+        $topics = Subject::find(1)
+        ->topics;
+
+        return view('home', compact('lernzentrum'))
+        ->with('angebots', $angebots)
+        ->with('subjects', $subjects)
+        ->with('topics', $topics);
+
+        }
+
+
+
 }
