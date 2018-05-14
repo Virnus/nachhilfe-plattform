@@ -36,6 +36,14 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/password', 'PasswordController@index')->name('account.password');
         Route::patch('/password', 'PasswordController@update')->name('account.password.update');
 
+        //Angebot
+        Route::get('/angebot', 'AngebotController@index')->name('account.angebot.index');
+        Route::get('/angebot/create', 'AngebotController@create')->name('account.angebot.create');
+        Route::get('/angebot/{angebot}/edit/', 'AngebotController@edit')->name('account.angebot.edit');
+        Route::post('/angebot', 'AngebotController@store')->name('account.angebot.store');
+        Route::patch('/angebot/{id}', 'AngebotController@update')->name('account.angebot.update');
+        Route::delete('/angebot/{id}', 'AngebotController@destroy')->name('account.angebot.destroy');
+
         // Lernzentrum
         Route::get('/lernzentrum', 'LernzentrumController@index')->name('account.lernzentrum');
         Route::get('/lernzentrum/support', 'LernzentrumSupportController@index')->name('account.lernzentrum.support');

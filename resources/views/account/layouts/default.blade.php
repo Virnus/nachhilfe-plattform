@@ -19,8 +19,8 @@
                         Nachhilfe
                     </p>
                     <ul class="menu-list">
-                        <li><a>Angebote</a></li>
-                        <li><a>Neues Angebot</a></li>
+                        <li><a href="{{ route('account.angebot.index') }}">Angebote</a></li>
+                        <li><a href="{{ route('account.angebot.create') }}">Neues Angebot</a></li>
                     </ul>
                     <p class="menu-label">
                         lernzentrum
