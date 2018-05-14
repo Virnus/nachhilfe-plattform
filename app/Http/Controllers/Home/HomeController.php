@@ -17,7 +17,8 @@ class HomeController extends Controller
     {
         $lernzentrum = Lernzentrum::isFuture()->orderBy('date', 'asc')->first();
 
-        $angebots= Angebot::all();
+        $angebots= Angebot::paginate(10);
+
 
 
         $subjects = Subject::all();
