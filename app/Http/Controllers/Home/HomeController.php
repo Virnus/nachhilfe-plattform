@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 
 use App\Angebot;
 use App\Lernzentrum;
-use App\Subject;
 
 
 class HomeController extends Controller
@@ -17,17 +16,17 @@ class HomeController extends Controller
     {
         $subject = $request->get('subject');
         $topic = $request->get('topic');
-        $perPage = 5;
+        $perPage = 10;
 
         if (!empty($subject)) {
-            $angebots = Angebot::bySubject($subject)->byTopic($topic)->paginate($perPage);
+            $angebote = Angebot::bySubject($subject)->byTopic($topic)->paginate($perPage);
         } else {
-            $angebots = Angebot::paginate($perPage);
+            $angebote = Angebot::paginate($perPage);
         }
 
         $lernzentrum = Lernzentrum::isFuture()->orderBy('date', 'asc')->first();
 
-        return view('home', compact('lernzentrum', 'angebots'));
+        return view('home', compact('lernzentrum', 'angebote'));
 
     }
 }
