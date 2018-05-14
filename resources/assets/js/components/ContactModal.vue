@@ -30,7 +30,7 @@
                     <button class="button is-primary" @click="submit">Senden</button>
                 </footer>
             </div>
-            <button class="modal-close is-large"></button>
+            <button class="modal-close is-large" @click.prevent="closeModal"></button>
         </div>
     </div>
 </template>

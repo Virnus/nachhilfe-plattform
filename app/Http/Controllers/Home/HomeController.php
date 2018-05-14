@@ -15,23 +15,19 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $lernzentrum = Lernzentrum::isFuture()->orderBy('date', 'asc')->first();
+        $subject = $request->get('subject');
+        $topic = $request->get('topic');
+        $perPage = 5;
 
-        $angebots= Angebot::all();
-
-
-        $subjects = Subject::all();
-
-        $topics = Subject::find(1)
-        ->topics;
-
-        return view('home', compact('lernzentrum'))
-        ->with('angebots', $angebots)
-        ->with('subjects', $subjects)
-        ->with('topics', $topics);
-
+        if (!empty($subject)) {
+            $angebots = Angebot::bySubject($subject)->byTopic($topic)->paginate($perPage);
+        } else {
+            $angebots = Angebot::paginate($perPage);
         }
 
+        $lernzentrum = Lernzentrum::isFuture()->orderBy('date', 'asc')->first();
 
+        return view('home', compact('lernzentrum', 'angebots'));
 
+    }
 }

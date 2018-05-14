@@ -73,7 +73,7 @@ class User extends Authenticatable
     {
         return $builder->where('active', true);
     }
-    
+
     public function scopeByUsername(Builder $builder, $username)
     {
         return $builder->where('email', 'LIKE', $username . '%' );

@@ -29,5 +29,21 @@ class Angebot extends Model
         return $builder->where('info', 'LIKE', '%' . $query . '%');
     }
 
+    public function scopeBySubject(Builder $builder, $subjectId)
+    {
+        return $builder->where('subject_id', $subjectId);
+    }
+
+    public function scopeByTopic(Builder $builder, $topicId)
+    {
+        if (empty($topicId)) {
+            return $builder;
+        }
+
+        return $builder->whereHas('topics', function ($query) use ($topicId) {
+            $query->where('id', $topicId);
+        });
+    }
+
 
 }

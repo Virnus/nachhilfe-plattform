@@ -20,6 +20,7 @@ Vue.component('lernzentrum-anmeldung', require('./components/LernzentrumAnmeldun
 Vue.component('tags-input', require('./components/TagsInput.vue'))
 Vue.component('contact-modal', require('./components/ContactModal.vue'))
 Vue.component('nachhilfe-suche', require('./components/NachhilfeSuche.vue'))
+Vue.component('angebote-filter', require('./components/AngeboteFilter.vue'))
 
 const app = new Vue({
     el: '#app'
