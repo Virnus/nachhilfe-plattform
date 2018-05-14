@@ -4,15 +4,15 @@
 
 @section('account.content')
         @foreach ($angebots as $angebot)
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <h4>
+            <section class="accordions">
+                <article class="accordion is-active">
+                    <div class="accordion-header toggle">
+                        <p>
                             {{ $angebot->subject->name }}: {{ $angebot->title }}
-                        </h4>
+                        </p>
                     </div>
-                    <article class="media">
-                        <div class="media-content">
+                    <article class="accordion-body">
+                        <div class="accordion-content">
                             <p>
                                 {{ $angebot->info }}
                             </p>
@@ -20,6 +20,7 @@
                             <label class="label">
                                 Fach: {{ $angebot->subject->name }}
                             </label>
+                            <br>
                             <div class="is-flex">
                                 <label class="label">
                                     Themen:
@@ -36,16 +37,12 @@
                                     {{ csrf_field() }}
                                     {{ method_field('Delete') }}
                                     <button class="button is-danger is-small" >Löschen</button>
-
                                 </form>
                             </div>
                         </div>
                     </article>
-                </div>
-                <div class="media-right">
-                    <span class="icon is-small"><i class="arrow down"></i></span>
-                </div>
-            </article>
+                </article>
+            </section>
         @endforeach
 @endsection
 
