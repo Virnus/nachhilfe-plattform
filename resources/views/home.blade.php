@@ -66,35 +66,37 @@
                 </header>
                 <div class="card-content">
                     @foreach ($angebots as $angebot)
-                        <article class="media">
-                            <div class="media-content">
-                                <div class="content">
-                                    @foreach ($angebot->topics as $topic)
-                                    <h4>
-                                        {{ $angebot->subject->name }}: {{ $topic->name }}
-                                    </h4>
-                                    @endforeach
+                        <section class="accordions">
+                            <article class="accordion is-active">
+                                <div class="accordion-header toggle">
                                     <p>
-                                    @include('layouts.partials._user-badge', ['user' => $angebot->provider])
+                                        {{ $angebot->subject->name }}: {{ $angebot->title }}
                                     </p>
-                                </div>
+                                    <p>
+                                        @include('layouts.partials._user-badge', ['user' => $angebot->user])
+                                    </p>
 
-                                <article class="media">
-                                    <div class="media-content">
-                                        <p>
-                                            {{ $angebot->info }}
-                                        </p>
-                                            <contact-modal
-                                                action="{{ route('user.store', ['id' => $angebot->provider->username]) }}"
-                                                name="{{ $angebot->provider->name }}" />
+                                </div>
+                                <div class="accordion-body">
+                                    <div class="accordion-content">
+                                        <p>{{ $angebot->info }}</p>
+                                        <br>
+                                        <label class="label">Fach: {{ $angebot->subject->name }}</label>
+                                        <br>
+                                        <div class="is-flex">
+                                            <label class="label">Themen:</label>
+                                            @foreach ($angebot->topics as $topic)
+                                                <label class="label"> &#8201;{{ $topic->name }},</label>
+                                            @endforeach
+                                        </div>
+                                        <contact-modal
+                                            action="{{ route('user.store', ['id' => $angebot->user->username]) }}"
+                                            name="{{ $angebot->user->name }}" />
                                     </div>
-                                </article>
-                            </div>
-                            <div class="media-right">
-                                <span class="icon is-small"><i class="arrow down"></i></span>
-                            </div>
-                        </article>
-                    @endforeach
+                                </div>
+                            </article>
+                        @endforeach
+                    {{ $angebots->links() }}
                 </div>
             </div>
         </div>
@@ -116,7 +118,9 @@
                         </div>
                         <div class="container is-flex">
                             <label style="margin-right: 10px" class="label">Freie Plätze:</label>
-                            {{ $lernzentrum->max_participants - $lernzentrum->anmeldungen->count() }}
+                            <lernzentrum-status
+                                max="{{ $lernzentrum->max_participants }}"
+                                current="{{ $lernzentrum->anmeldungen->count() }}"/>
                         </div>
                 </div>
             </div>
@@ -125,12 +129,19 @@
 </section>
 @endsection
 
+<script type="text/javascript" src="/node_modules/bulma-extensions/bulma-accordion/dist/bulma-accordion.min.js"></script>
+
 <style>
 i {
 border: solid black;
 border-width: 0 3px 3px 0;
 display: inline-block;
 padding: 3px;
+}
+
+.up {
+    transform: rotate(225deg);
+    -webkit-transform: rotate(225deg);
 }
 
 .down {
