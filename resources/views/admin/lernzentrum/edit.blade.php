@@ -48,11 +48,12 @@
             <div class="control">
                 <div class="select">
                   <select name="teacher_id" id="teacher_id">
-                    <option>Leitung wählen</option>
-        @foreach ($teachers as $teacher)
-            <option value="{{ $teacher->id }}" {{ ($lernzentrum->teacher_id === $teacher->id) ? 'selected' : '' }}>{{ $teacher->name }}</option>
-        @endforeach
-                    <option>With options</option>
+                      <option>-- Leitung wählen --</option>
+                      @foreach ($users as $teacher)
+                          @if ($teacher->isNotSchueler())
+                              <option value="{{ $teacher->id }}" {{ ($lernzentrum->teacher_id === $teacher->id) ? 'selected' : '' }}>{{ $teacher->name }}</option>
+                          @endif
+                      @endforeach
                   </select>
                 </div>
             </div>
@@ -80,8 +81,10 @@
             <div class="control">
                 <div class="select is-multiple">
                     <select multiple size="4" name="assistants[]" id="assistants[]">
-            @foreach ($teachers as $teacher)
-            <option{{ ($lernzentrum->assistants->contains($teacher)) ? ' selected' : '' }} value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+            @foreach ($users as $assistant)
+                @if ($assistant->verified)
+            <option{{ ($lernzentrum->assistants->contains($assistant)) ? ' selected' : '' }} value="{{ $assistant->id }}">{{ $assistant->name }}</option>
+@endif
             @endforeach
                     </select>
                 </div>

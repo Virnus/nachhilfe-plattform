@@ -28,10 +28,10 @@ class LernzentrumController extends Controller
      */
     public function create()
     {
-        $teachers = User::all();
+        $users = User::isActive()->get();
 
         return view('admin.lernzentrum.create')
-            ->with('teachers', $teachers);
+            ->with('users', $users);
     }
 
     /**
@@ -71,11 +71,11 @@ class LernzentrumController extends Controller
      */
     public function edit(Lernzentrum $lernzentrum)
     {
-        $teachers = User::all();
+        $users = User::isActive()->get();
 
         return view('admin.lernzentrum.edit')
             ->with('lernzentrum', $lernzentrum)
-            ->with('teachers', $teachers);
+            ->with('users', $users);
     }
 
     /**
