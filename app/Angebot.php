@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Angebot extends Model
 {
-    protected $fillable = ['info', 'provider_id', 'subject_id', 'topic_id'];
+    protected $fillable = [ 'title', 'info', 'user_id', 'subject_id', 'topic_id'];
 
-    public function provider()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
