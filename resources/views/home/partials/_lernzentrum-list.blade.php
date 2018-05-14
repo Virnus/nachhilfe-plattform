@@ -8,7 +8,7 @@
         <ul>
         @foreach ($lernzentrums as $lernzentrum)
             <li>
-                <a href="{{ route('lernzentrum.detail', ['id' => $lernzentrum->id]) }}" class="is-size-5">{{ $lernzentrum->date->formatLocalized('%A %d %B %Y') }}</a>
+                <a href="{{ route('lernzentrum.detail', ['id' => $lernzentrum->id]) }}" class="is-size-5">{{ $lernzentrum->date->formatLocalized('%A, %d. %B %Y') }}</a>
             </li>
         @endforeach
         </ul>

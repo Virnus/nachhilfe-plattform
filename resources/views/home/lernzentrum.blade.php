@@ -18,7 +18,7 @@
                 <div class="card is-shady">
                     <header class="card-header">
                         <p class="card-header-title">
-                            Lernzentrum am {{ $lernzentrum->date->format('l, d. F Y') }}
+                            Lernzentrum am {{ $lernzentrum->date->formatLocalized('%A, %d. %B %Y') }}
                         </p>
                     </header>
                     <div class="card-content">
