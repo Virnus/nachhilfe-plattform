@@ -13,11 +13,11 @@ class UserController extends Controller
 {
     public function detail($username)
     {
-        $user = User::where('email', 'LIKE', $username . '%' )->firstOrFail();
-
-        if (strlen($username) < 7 || !$user->active) {
+        if (strlen($username) < 7) {
             return abort(404);
         }
+        
+        $user = User::byUsername($username)->isActive()->firstOrFail();
 
         return view('home.users.detail')
             ->with('user', $user);
