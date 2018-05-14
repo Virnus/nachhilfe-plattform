@@ -39,7 +39,7 @@ class User extends Authenticatable
         return str_before($this->email, '@');
     }
 
-    public function angebote()
+    public function angebots()
     {
         return $this->hasMany(Angebot::class);
     }
