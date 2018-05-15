@@ -17,6 +17,9 @@
           <li class="{{ on_page('*/lernzentrum*') ? 'is-active' : '' }}">
             <a href="{{ route('admin.lernzentrum.index') }}">Lernzentrum</a>
           </li>
+          <li class="{{ on_page('*/angebot') ? 'is-active' : '' }}">
+            <a href="{{ route('admin.angebot.index') }}">Angebot</a>
+            </li>
           <li class="{{ on_page('*/subjects') ? 'is-active' : '' }}">
             <a href="{{ route('admin.subjects') }}">Fächer</a>
           </li>

@@ -36,7 +36,7 @@
                                 <form class="is-inline-block" action="{{ route('account.angebot.destroy', [$angebot->id]) }}" method="post">
                                     {{ csrf_field() }}
                                     {{ method_field('Delete') }}
-                                    <button class="button is-danger is-small" >Löschen</button>
+                                    <button class="button is-danger is-small" onclick="return confirm('Datensatz wirklich löschen?')" >Löschen</button>
                                 </form>
                             </div>
                         </div>

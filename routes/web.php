@@ -1,4 +1,5 @@
 <?php
+use App\Angebot;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,9 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
 
         // Lernzentrum
         Route::resource('/lernzentrum', 'LernzentrumController');
+
+        // Angebot
+        Route::resource('/angebot', 'AngebotController');
 
         // Topics
         Route::get('/topics', 'TopicController@index')->name('topics');
