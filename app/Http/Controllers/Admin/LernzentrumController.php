@@ -18,7 +18,7 @@ class LernzentrumController extends Controller
     public function index()
     {
         return view('admin.lernzentrum.index')
-            ->with('lernzentrums', Lernzentrum::all());
+            ->with('lernzentrums', Lernzentrum::orderBy('date')->paginate(10));
     }
 
     /**

@@ -43,4 +43,5 @@
             @endforeach
         </tbody>
     </table>
+    {{ $lernzentrums->links() }}
 @endsection
