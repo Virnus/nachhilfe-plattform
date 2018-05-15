@@ -11,7 +11,7 @@ class TopicSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Topic::class, 1000)->create()->each(function($topic)
+        factory(App\Topic::class, 50)->create()->each(function($topic)
         {
           $topic->save();
         });

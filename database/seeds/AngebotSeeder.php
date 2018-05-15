@@ -22,9 +22,9 @@ class AngebotSeeder extends Seeder
 
             $angebot->topics()->sync(
                 [
-                    $faker->numberBetween(0, 100),
-                    $faker->optional(0.4, 0)->numberBetween(0, 100),
-                    $faker->optional(0.1, 0)->numberBetween(0, 100)
+                    $faker->numberBetween(0, 50),
+                    $faker->optional(0.4, 0)->numberBetween(0, 50),
+                    $faker->optional(0.1, 0)->numberBetween(0, 50)
                 ]
             );
         });
