@@ -27,7 +27,9 @@
                     </p>
                     <ul class="menu-list">
                         <li><a href="{{ route('account.lernzentrum') }}" class="{{ on_page('*/lernzentrum') ? 'is-active' : '' }}">Anmeldungen</a></li>
-                        <li><a href="{{ route('account.lernzentrum.support') }}" class="{{ on_page('*/lernzentrum/support') ? 'is-active' : '' }}">Aufgebote</a></li>
+                        @if (auth()->user()->verified)
+                            <li><a href="{{ route('account.lernzentrum.support') }}" class="{{ on_page('*/lernzentrum/support') ? 'is-active' : '' }}">Aufgebote</a></li>
+                        @endif
                     </ul>
                 </aside>
             </div>
