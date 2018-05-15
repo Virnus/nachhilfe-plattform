@@ -64,4 +64,30 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         })
     }
+
+    // Get all "Accordions" elements
+    const $accordions = Array.prototype.slice.call(document.querySelectorAll('.angebot-accordion'), 0)
+
+    if ($accordions.length > 0) {
+
+        $accordions.forEach(($el) => {
+            $el.querySelector('.angebot-accordion__header').addEventListener('click', () => {
+                /* Toggle between adding and removing the "is-active" class,
+                to highlight the button that controls the panel */
+                $el.classList.toggle('is-active');
+
+                const $body = $el.querySelector('.angebot-accordion__body')
+
+                if ($body.style.maxHeight){
+                    $body.style.maxHeight = null;
+                } else {
+                    $body.style.maxHeight = $body.scrollHeight + "px";
+                }
+            })
+        })
+    }
+
+
 })
+
+require('./bulma-extensions')

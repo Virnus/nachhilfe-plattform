@@ -29,11 +29,27 @@
     </section>
     <div class="container">
         <div class="columns is-marginless">
-            <div class="column is-2">
-                filter
+            <div class="column is-3">
+                <angebote-filter
+                    base="{{ url('/') }}"
+                    action="{{ route('user.detail', ['id' => $user->username]) }}"
+                    subject="{{ Request::get('subject') }}"
+                    topic="{{ Request::get('topic') }}" />
             </div>
-            <div class="column is-7">
-                recors
+            <div class="column is-6">
+                <div class="card is-shady">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Resultate<span class="has-text-weight-normal">&nbsp;- {{ $angebote->count() }} von {{ $angebote->total() }} Einträgen</span>
+                        </p>
+                    </header>
+                    <div class="card-content is-paddingless">
+                        @each('home.partials._angebot-accordion', $angebote, 'angebot')
+                    </div>
+                </div>
+                <div class="m-t-md">
+                    {{ $angebote->appends(Request::only(['subject', 'topic']))->links() }}
+                </div>
             </div>
             <div class="column is-3">
                 <contact-modal

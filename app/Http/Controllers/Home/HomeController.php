@@ -19,9 +19,9 @@ class HomeController extends Controller
         $perPage = 10;
 
         if (!empty($subject)) {
-            $angebote = Angebot::bySubject($subject)->byTopic($topic)->paginate($perPage);
+            $angebote = Angebot::bySubject($subject)->byTopic($topic)->orderBy('created_at', 'desc')->paginate($perPage);
         } else {
-            $angebote = Angebot::paginate($perPage);
+            $angebote = Angebot::orderBy('created_at', 'desc')->paginate($perPage);
         }
 
         $lernzentrum = Lernzentrum::isFuture()->orderBy('date', 'asc')->first();

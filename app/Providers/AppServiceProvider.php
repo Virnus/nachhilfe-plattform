@@ -25,5 +25,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         setlocale(LC_TIME, "de_CH");
+        \Carbon\Carbon::setLocale('de');
     }
 }

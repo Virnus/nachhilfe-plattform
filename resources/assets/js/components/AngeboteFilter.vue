@@ -31,7 +31,10 @@
                 </div>
             </div>
             <div class="field">
-                <button class="button is-primary" @click.prevent="push" :disabled="!response.topics">Filtern</button>
+                <button class="button is-primary is-fullwidth" @click.prevent="push" :disabled="!response.topics">Filtern</button>
+            </div>
+            <div class="field" v-if="subjectId || topicId">
+                <button class="button is-info is-fullwidth" @click.prevent="reset">Filter zurücksetzten</button>
             </div>
         </div>
     </div>
@@ -39,7 +42,7 @@
 
 <script>
 export default {
-    props: ['base'],
+    props: ['base', 'action', 'subject', 'topic'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -68,10 +71,19 @@ export default {
                 .then(response => (this.response.topics = response.data))
         },
         push() {
-            location.assign(`${this.base}/?subject=${this.subjectId}&topic=${this.topicId}`)
+            location.assign(`${this.action}/?subject=${this.subjectId}&topic=${this.topicId}`)
+        },
+        reset () {
+            this.subjectId = ""
+            this.topicId = ""
+            if (this.subject || this.topic) {
+                location.assign(`${this.action}/`)
+            }
         }
     },
     created() {
+        this.subjectId = this.subject
+        this.topicId = this.topic
         this.getSubjects()
     }
 }

@@ -22,49 +22,24 @@
 <section class="container m-t-md">
     <div class="columns">
         <div class="column is-3">
-            <angebote-filter base="{{ url('/') }}" />
+            <angebote-filter base="{{ url('/') }}"
+                action="{{ route('home') }}"
+                subject="{{ Request::get('subject') }}"
+                topic="{{ Request::get('topic') }}" />
         </div>
         <div class="column is-6">
             <div class="card is-shady">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Resultate - {{ $angebote->count() }} Einträge
+                        Resultate<span class="has-text-weight-normal">&nbsp;- {{ $angebote->count() }} von {{ $angebote->total() }} Einträgen</span>
                     </p>
                 </header>
-                <div class="card-content">
-                    @foreach ($angebote as $angebot)
-                        <section class="accordions">
-                            <article class="accordion is-active">
-                                <div class="accordion-header toggle">
-                                    <p>
-                                        {{ $angebot->subject->name }}: {{ $angebot->title }}
-                                    </p>
-                                    <p>
-                                        @include('layouts.partials._user-badge', ['user' => $angebot->user])
-                                    </p>
-
-                                </div>
-                                <div class="accordion-body">
-                                    <div class="accordion-content">
-                                        <p>{{ $angebot->info }}</p>
-                                        <br>
-                                        <label class="label">Fach: {{ $angebot->subject->name }}</label>
-                                        <br>
-                                        <div class="is-flex">
-                                            <label class="label">Themen:</label>
-                                            @foreach ($angebot->topics as $topic)
-                                                <label class="label"> &#8201;{{ $topic->name }},</label>
-                                            @endforeach
-                                        </div>
-                                        <contact-modal
-                                            action="{{ route('user.store', ['id' => $angebot->user->username]) }}"
-                                            name="{{ $angebot->user->name }}" />
-                                    </div>
-                                </div>
-                            </article>
-                        @endforeach
-                    {{ $angebote->appends(Request::only(['subject', 'topic']))->links() }}
+                <div class="card-content is-paddingless">
+                    @each('home.partials._angebot-accordion', $angebote, 'angebot')
                 </div>
+            </div>
+            <div class="m-t-md">
+                {{ $angebote->appends(Request::only(['subject', 'topic']))->links() }}
             </div>
         </div>
         <div class="column is-3">
@@ -72,22 +47,30 @@
                 <header class="card-header">
                     <p class="card-header-title">
                         Lernzentrum
-                    </p>
-                </header>
-                <div class="card-content">
-                        <div class="container is-flex">
-                            <label style="margin-right: 10px" class="label">Datum:</label>
-                            {{ $lernzentrum->date->format('l, d. F Y') }}
-                        </div>
-                        <div class="container is-flex">
-                            <label style="margin-right: 10px" class="label">Leitung:</label>
-                            {{ $lernzentrum->teacher->name }}
-                        </div>
-                        <div class="container is-flex">
-                            <label style="margin-right: 10px" class="label">Freie Plätze:</label>
+                        <div class="card-header-icon">
                             <lernzentrum-status
                                 max="{{ $lernzentrum->max_participants }}"
                                 current="{{ $lernzentrum->anmeldungen->count() }}"/>
+                        </div>
+                    </p>
+                </header>
+                <div class="card-content">
+                        <div class="field">
+                            <p>
+                                <span class="has-text-weight-bold">Datum:</span> {{ $lernzentrum->date->format('l, d. F Y') }}
+                            </p>
+                            <p>
+                                <span class="has-text-weight-bold">Leitung:</span> {{ $lernzentrum->teacher->name }}
+                            </p>
+                        </div>
+                        <div class="field">
+                            <a class="button is-primary is-outlined is-fullwidth" href="{{ route('lernzentrum.detail', ['id' => $lernzentrum->id]) }}">Details</a>
+                        </div>
+                        <div class="field">
+                            <lernzentrum-anmeldung
+                                angemeldet="{{ $lernzentrum->isSignUp(auth()->user()) }}"
+                                action="{{ route('lernzentrum.detail', [$lernzentrum->id]) }}"
+                                base="{{ url('/') }}" />
                         </div>
                 </div>
             </div>
@@ -95,8 +78,6 @@
     </div>
 </section>
 @endsection
-
-<script type="text/javascript" src="/node_modules/bulma-extensions/bulma-accordion/dist/bulma-accordion.min.js"></script>
 
 <style>
 i {
