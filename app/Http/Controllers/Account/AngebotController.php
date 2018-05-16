@@ -13,11 +13,8 @@ class AngebotController extends Controller
 {
     public function index(Request $request)
     {
-        $subjects = Subject::all();
-
         return view('account.angebot.index')
-        ->with('angebots', auth()->user()->angebots)
-        ->with('subjects', $subjects);
+            ->with('angebots', $request->user()->angebots);
     }
 
     public function create()
@@ -50,9 +47,9 @@ class AngebotController extends Controller
                     $angebot->topics()->attach($topic);
                 }
             }
-
         }
-        return redirect()->route('account.angebot.index')
+
+        return redirect()->route('account.angebote.index')
             ->withSuccess('Angebot wurde erfolgreich erstellt.');
 
     }
@@ -65,22 +62,17 @@ class AngebotController extends Controller
 
     public function update(Request $request, Angebot $angebot)
     {
-        $angebot = Angebot::find($request->id);
+        $angebot->update($request->only(['title', 'info']));
 
-        $angebot->title = $request->title;
-        $angebot->info = $request->info;
-
-        $angebot->save();
-
-        return redirect()->route('account.angebot.index')
+        return redirect()->route('account.angebote.index')
             ->withSuccess('Angebot wurde erfolgreich bearbeitet');
     }
 
-    public function destroy($id)
+    public function destroy(Angebot $angebot)
     {
-        Angebot::destroy($id);
+        $angebot->delete();
 
-        return redirect()->route('account.angebot.index')
+        return redirect()->route('account.angebote.index')
             ->withSuccess('Angebot wurde erfolgreich gelöscht.');
     }
 }

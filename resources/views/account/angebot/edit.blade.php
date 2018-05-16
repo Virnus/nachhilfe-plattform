@@ -1,9 +1,9 @@
 @extends('account.layouts.default')
 
-@section('account.title', 'Angebot')
+@section('account.title', 'Angebot bearbeiten')
 
 @section('account.content')
-<form action="{{ route('account.angebot.update', ['id' => $angebot->id]) }}" method="post">
+<form action="{{ route('account.angebote.update', ['id' => $angebot->id]) }}" method="post">
     {{ csrf_field() }}
     {{ method_field('PATCH') }}
 

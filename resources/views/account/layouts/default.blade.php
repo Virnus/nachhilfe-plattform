@@ -11,7 +11,7 @@
                         Account
                     </p>
                     <ul class="menu-list">
-                        <li><a href="{{ route('account') }}" class="{{ on_page('account') ? 'is-active' : '' }}">Dashboard</a></li>
+                        <li><a href="{{ route('account.index') }}" class="{{ on_page('account') ? 'is-active' : '' }}">Dashboard</a></li>
                         <li><a href="{{ route('account.profile') }}" class="{{ on_page('*/profile') ? 'is-active' : '' }}">Profil</a></li>
                         <li><a href="{{ route('account.password') }}" class="{{ on_page('*/password') ? 'is-active' : '' }}">Passwort ändern</a></li>
                     </ul>
@@ -19,8 +19,8 @@
                         Nachhilfe
                     </p>
                     <ul class="menu-list">
-                        <li><a href="{{ route('account.angebot.index') }}">Angebote</a></li>
-                        <li><a href="{{ route('account.angebot.create') }}">Neues Angebot</a></li>
+                        <li><a href="{{ route('account.angebote.index') }}">Angebote</a></li>
+                        <li><a href="{{ route('account.angebote.create') }}">Neues Angebot</a></li>
                     </ul>
                     <p class="menu-label">
                         lernzentrum

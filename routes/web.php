@@ -1,5 +1,4 @@
 <?php
-use App\Angebot;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,28 +25,24 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/users/{user}', 'Home\\UserController@store')->name('user.store');
 
     // Account
-    Route::group(['namespace' => 'account', 'prefix' => 'account'], function() {
-        Route::get('/', 'AccountController@index')->name('account');
+    Route::group(['namespace' => 'account', 'prefix' => 'account', 'as' => 'account.'], function() {
+        Route::get('/', 'AccountController@index')->name('index');
 
         // Profile
-        Route::get('/profile', 'ProfileController@index')->name('account.profile');
-        Route::patch('/profile', 'ProfileController@update')->name('account.profile.update');
+        Route::get('/profile', 'ProfileController@index')->name('profile');
+        Route::patch('/profile', 'ProfileController@update')->name('profile.update');
 
         // Password
-        Route::get('/password', 'PasswordController@index')->name('account.password');
-        Route::patch('/password', 'PasswordController@update')->name('account.password.update');
+        Route::get('/password', 'PasswordController@index')->name('password');
+        Route::patch('/password', 'PasswordController@update')->name('password.update');
 
         //Angebot
-        Route::get('/angebot', 'AngebotController@index')->name('account.angebot.index');
-        Route::get('/angebot/create', 'AngebotController@create')->name('account.angebot.create');
-        Route::get('/angebot/{angebot}/edit/', 'AngebotController@edit')->name('account.angebot.edit');
-        Route::post('/angebot', 'AngebotController@store')->name('account.angebot.store');
-        Route::patch('/angebot/{id}', 'AngebotController@update')->name('account.angebot.update');
-        Route::delete('/angebot/{id}', 'AngebotController@destroy')->name('account.angebot.destroy');
+        Route::model('angebote', 'App\\Angebot');
+        Route::resource('/angebote', 'AngebotController', ['except' => 'show']);
 
         // Lernzentrum
-        Route::get('/lernzentrum', 'LernzentrumController@index')->name('account.lernzentrum');
-        Route::get('/lernzentrum/support', 'LernzentrumSupportController@index')->name('account.lernzentrum.support');
+        Route::get('/lernzentrum', 'LernzentrumController@index')->name('lernzentrum');
+        Route::get('/lernzentrum/support', 'LernzentrumSupportController@index')->name('lernzentrum.support');
     });
 });
 
@@ -62,7 +57,7 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
         Route::resource('/lernzentrum', 'LernzentrumController');
 
         // Angebot
-        Route::resource('/angebot', 'AngebotController');
+        Route::resource('/angebote', 'AngebotController');
 
         // Topics
         Route::get('/topics', 'TopicController@index')->name('topics');
@@ -94,8 +89,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'api', 'prefix' => 'webapi'
     Route::get('/subjects', 'SubjectController@index')->name('subject');
     Route::get('/search', 'SearchController@index')->name('search');
 });
-
-Route::get('/admin', 'Admin\AdminController@index');
 
 // Auth
 Auth::routes();

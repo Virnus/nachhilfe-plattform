@@ -21,9 +21,9 @@
                 </td>
                 <td>@include('layouts.partials._user-badge', ['user' => $angebot->user])</td>
                 <td>
-                    <a class="button is-primary is-small" href="{{ route('admin.angebot.show', [$angebot->id]) }}">Details</a>
-                    <a class="button is-info is-small" href="{{ route('admin.angebot.edit', [$angebot->id]) }}">Bearbeiten</a>
-                    <form class="is-inline-block" action="{{ route('admin.angebot.destroy', [$angebot->id]) }}" method="post">
+                    <a class="button is-primary is-small" href="{{ route('admin.angebote.show', [$angebot->id]) }}">Details</a>
+                    <a class="button is-info is-small" href="{{ route('admin.angebote.edit', [$angebot->id]) }}">Bearbeiten</a>
+                    <form class="is-inline-block" action="{{ route('admin.angebote.destroy', [$angebot->id]) }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('Delete') }}
                         <button class="button is-danger is-small" onclick="return confirm('Datensatz wirklich löschen?')">Löschen</button>

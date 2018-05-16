@@ -1,6 +1,6 @@
 <template>
     <div class="angebot-erstellen">
-        <form :action="base + '/account/angebot'" method="post" ref="form">
+        <form :action="action" method="post" ref="form">
             <input type="hidden" name="_token" :value="csrf">
             <div class="field">
                 <label class="label">Titel</label>
@@ -49,7 +49,7 @@
 
 <script>
 export default {
-    props: ['base'],
+    props: ['base', 'action'],
     data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -72,13 +72,13 @@ export default {
     methods: {
         getSubjects() {
             return axios
-            .get(`${this.base}/webapi/subjects`)
-            .then(response => (this.response.subjects = response.data))
+                .get(`${this.base}/webapi/subjects`)
+                .then(response => (this.response.subjects = response.data))
         },
         getResults() {
             return axios
-            .get(`${this.base}/webapi/topics?subject=${this.subject}&name=`)
-            .then(response => (this.response.topics = response.data))
+                .get(`${this.base}/webapi/topics?subject=${this.subject}&name=`)
+                .then(response => (this.response.topics = response.data))
         },
         submit() {
             this.$refs.form.submit()

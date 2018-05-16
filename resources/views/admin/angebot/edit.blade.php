@@ -2,7 +2,7 @@
 
 
 @section('admin.content')
-<form action="{{ route('admin.angebot.update', ['id' => $angebot->id]) }}" method="post">
+<form action="{{ route('admin.angebote.update', ['id' => $angebot->id]) }}" method="post">
     {{ csrf_field() }}
     {{ method_field('PATCH') }}
 
