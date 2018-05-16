@@ -22,7 +22,7 @@ class CreateLernzentrumsTable extends Migration
             $table->integer('teacher_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('teacher_id')->references('id')->on('users');
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

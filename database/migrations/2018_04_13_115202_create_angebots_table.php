@@ -21,8 +21,8 @@ class CreateAngebotsTable extends Migration
             $table->integer('subject_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('subject_id')->references('id')->on('subjects');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
         });
     }
 
