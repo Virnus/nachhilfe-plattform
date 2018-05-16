@@ -1,6 +1,6 @@
 <template>
-    <div class="nachhilfe-suche">
-        <input type="search" name="search" class="input" placeholder="Suchen..." v-model="query" @focus="openRecords" @blur="closeRecords" @keyup.esc="closeRecords" />
+    <div class="nachhilfe-suche" ref="records">
+        <input type="search" name="search" class="input" placeholder="Suchen..." v-model="query" @keyup.enter="searchRecords" @focus="openRecords" @keyup.esc="forceCloseRecords" />
         <div v-if="active"  class="nachhilfe-suche__records has-text-dark">
             <div v-if="response.angebote && response.angebote.length" class="nachhilfe-suche__angebote">
                 <div class="nachhilfe-suche__header is-size-6 has-text-weight-semibold">
@@ -12,8 +12,8 @@
                 <div class="nachhilfe-suche__content is-size-6">
                     <ul>
                         <li v-for="angebot in response.angebote">
-                            <a href="#">
-                                {{ angebot.info }}
+                            <a :href="angebot_url + angebot.id">
+                                {{ angebot.title }}
                             </a>
                         </li>
                     </ul>
@@ -70,6 +70,12 @@ export default {
         }
     },
     computed: {
+        search_url() {
+            return this.endpoint + '/?search='
+        },
+        angebot_url() {
+            return this.endpoint + '/?angebot='
+        },
         lernzentrum_url() {
             return this.endpoint + '/lernzentrum/'
         },
@@ -83,11 +89,19 @@ export default {
                 this.response = response.data.data
             })
         },
-        closeRecords(e) {
+        searchRecords() {
+            location.assign(this.search_url + this.query)
+        },
+        forceCloseRecords(e) {
             this.active = false
         },
         openRecords(e) {
             this.active = true
+        },
+        closeRecords(e) {
+            if (!this.getClosest(e.target, this.$refs.records)) {
+                this.active = false
+            }
         },
         formatDate(date) {
             const monthNames = [
@@ -110,12 +124,29 @@ export default {
             const year = date.getFullYear()
 
             return day + '. ' + monthNames[monthIndex] + ' ' + year
+        },
+        getClosest(el, tag) {
+            do {
+                if (el === tag) {
+                    // tag name is found! let's return it. :)
+                    return true
+                }
+            } while ((el = el.parentNode))
+
+            // not found :(
+            return false
         }
     },
     watch: {
         query() {
             this.getRecords()
         }
+    },
+    mounted() {
+        window.addEventListener('click', this.closeRecords)
+    },
+    destroyed() {
+        window.removeEventListener('click', this.closeRecords)
     }
 }
 </script>

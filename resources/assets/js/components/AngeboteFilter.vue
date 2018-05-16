@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="field">
-                <button class="button is-primary is-fullwidth" @click.prevent="push" :disabled="!response.topics">Filtern</button>
+                <button class="button is-primary is-fullwidth" @click.prevent="push" :disabled="!subjectId" :title="!subjectId ? 'Zuerst Fach auswählen' : ''">Filtern</button>
             </div>
             <div class="field" v-if="subjectId || topicId">
                 <button class="button is-info is-fullwidth" @click.prevent="reset">Filter zurücksetzten</button>
@@ -73,9 +73,9 @@ export default {
         push() {
             location.assign(`${this.action}/?subject=${this.subjectId}&topic=${this.topicId}`)
         },
-        reset () {
-            this.subjectId = ""
-            this.topicId = ""
+        reset() {
+            this.subjectId = ''
+            this.topicId = ''
             if (this.subject || this.topic) {
                 location.assign(`${this.action}/`)
             }
