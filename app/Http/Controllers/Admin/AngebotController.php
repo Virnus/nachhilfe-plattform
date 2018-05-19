@@ -11,7 +11,7 @@ class AngebotController extends Controller
 {
     public function index() {
         return view('admin.angebot.index')
-            ->with('angebots', Angebot::all());
+            ->with('angebots', Angebot::paginate(10));
     }
 
     public function show(Angebot $angebot)

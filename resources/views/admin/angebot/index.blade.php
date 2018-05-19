@@ -33,4 +33,5 @@
         @endforeach
     </tbody>
 </table>
+{{ $angebots->links() }}
 @endsection
