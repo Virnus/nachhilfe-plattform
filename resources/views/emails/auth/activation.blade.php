@@ -1,5 +1,5 @@
 @component('mail::message')
-# aktivieren Sie Ihren Account
+# Aktivieren Sie Ihren Account
 
 Vielen Dank fürs Registrieren. Bitte aktivieren Sie nun Ihren Account.
 
@@ -8,5 +8,5 @@ Vielen Dank fürs Registrieren. Bitte aktivieren Sie nun Ihren Account.
 @endcomponent
 
 Danke,<br>
-{{ config('app.name') }}
+das Nachhilfe-Plattform Team
 @endcomponent
