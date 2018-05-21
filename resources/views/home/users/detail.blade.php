@@ -44,7 +44,7 @@
                         </p>
                     </header>
                     <div class="card-content is-paddingless">
-                        @each('home.partials._angebot-accordion', $angebote, 'angebot')
+                        @each('layouts.partials._angebot-accordion', $angebote, 'angebot')
                     </div>
                 </div>
                 <div class="m-t-md">
@@ -58,4 +58,5 @@
             </div>
         </div>
     </div>
+{{ $angebote->links() }}
 @endsection
