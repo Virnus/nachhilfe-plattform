@@ -1,5 +1,7 @@
 @extends('auth._auth')
 
+@section('section_title', 'Registrieren')
+
 @section('auth')
   <div class="card">
 

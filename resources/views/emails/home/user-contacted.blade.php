@@ -6,5 +6,5 @@ Betreff: {{ $title }}
 Inhalt: {{ $content }}
 
 Danke,<br>
-{{ config('app.name') }}
+Das Nachhilfe-Plattform Team
 @endcomponent

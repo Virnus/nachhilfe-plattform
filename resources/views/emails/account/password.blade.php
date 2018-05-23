@@ -10,5 +10,5 @@ Passwort zurücksetzen
 @endcomponent
 
 Danke,<br>
-{{ config('app.name') }}
+Das Nachhilfe-Plattform Team
 @endcomponent

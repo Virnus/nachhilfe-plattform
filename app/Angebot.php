@@ -50,5 +50,10 @@ class Angebot extends Model
         });
     }
 
+    public function isOwner($user)
+    {
+        return $this->user->id === $user->id;
+    }
+
 
 }

@@ -34,8 +34,10 @@ class UserController extends Controller
             ->with('angebote',$angebote);
     }
 
-    public function store(User $user, Request $request)
+    public function store($username, Request $request)
     {
+        $user = User::byUsername($username)->isActive()->firstOrFail();
+        
         Mail::to($user)->send(new UserContacted(auth()->user(), $request->title, $request->content));
 
         return back()

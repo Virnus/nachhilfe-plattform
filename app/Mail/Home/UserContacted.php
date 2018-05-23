@@ -36,6 +36,6 @@ class UserContacted extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.home.user-contacted');
+        return $this->subject("Neue Nachricht von {$this->user->name} erhalten")->markdown('emails.home.user-contacted');
     }
 }

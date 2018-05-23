@@ -56,12 +56,20 @@ class AngebotController extends Controller
 
     public function edit(Angebot $angebot)
     {
+        if (!$angebot->isOwner(auth()->user())) {
+            abort(404);
+        }
+
         return view('account.angebot.edit')
             ->with('angebot', $angebot);
     }
 
     public function update(Request $request, Angebot $angebot)
     {
+        if (!$angebot->isOwner(auth()->user())) {
+            abort(404);
+        }
+
         $angebot->update($request->only(['title', 'info']));
 
         return redirect()->route('account.angebote.index')
@@ -70,6 +78,10 @@ class AngebotController extends Controller
 
     public function destroy(Angebot $angebot)
     {
+        if (!$angebot->isOwner(auth()->user())) {
+            abort(404);
+        }
+
         $angebot->delete();
 
         return redirect()->route('account.angebote.index')
