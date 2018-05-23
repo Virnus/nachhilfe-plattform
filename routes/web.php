@@ -68,7 +68,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
 });
 
 // Datatable Rescources
-Route::group(['namespace' => 'Datatable', 'prefix' => 'datatable', 'as' => 'datatable.'], function() {
+Route::group(['namespace' => 'DataTable', 'prefix' => 'datatable', 'as' => 'datatable.'], function() {
 
     // Add Middleware for Admin and Lehrer
     Route::middleware(['auth', 'role:lehrer,admin'])->group(function() {

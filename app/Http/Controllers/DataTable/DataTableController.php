@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\DataTable;
+
 use Exception;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
