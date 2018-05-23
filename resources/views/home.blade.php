@@ -57,7 +57,7 @@
                 <div class="card-content">
                         <div class="field">
                             <p>
-                                <span class="has-text-weight-bold">Datum:</span> {{ $lernzentrum->date->format('l, d. F Y') }}
+                                <span class="has-text-weight-bold">Datum:</span> {{ $lernzentrum->date->formatLocalized('%A, %d. %B %Y') }}
                             </p>
                             <p>
                                 <span class="has-text-weight-bold">Leitung:</span> {{ $lernzentrum->teacher->name }}
