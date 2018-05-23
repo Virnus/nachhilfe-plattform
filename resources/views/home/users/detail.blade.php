@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('section_title', $user->name)
+
 @section('content')
     <section class="hero is-primary is-bold">
         <div class="hero-body">
@@ -29,6 +31,7 @@
     </section>
     <div class="container">
         <div class="columns is-marginless">
+
             <div class="column is-3">
                 <angebote-filter
                     base="{{ url('/') }}"
@@ -52,6 +55,8 @@
                 </div>
             </div>
             <div class="column is-3">
+                @include('layouts.partials._alert')
+                
                 <contact-modal
                     action="{{ route('user.store', ['id' => $user->username]) }}"
                     name="{{ $user->name }}" />

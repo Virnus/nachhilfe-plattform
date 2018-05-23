@@ -25,7 +25,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/users/{user}', 'Home\\UserController@store')->name('user.store');
 
     // Account
-    Route::group(['namespace' => 'account', 'prefix' => 'account', 'as' => 'account.'], function() {
+    Route::group(['namespace' => 'Account', 'prefix' => 'account', 'as' => 'account.'], function() {
         Route::get('/', 'AccountController@index')->name('index');
 
         // Profile
@@ -46,7 +46,7 @@ Route::middleware(['auth'])->group(function() {
     });
 });
 
-Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
 
     // Lehrer Bereich
     Route::middleware(['auth', 'role:lehrer,admin'])->group(function() {
@@ -68,7 +68,7 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
 });
 
 // Datatable Rescources
-Route::group(['namespace' => 'datatable', 'prefix' => 'datatable', 'as' => 'datatable.'], function() {
+Route::group(['namespace' => 'DataTable', 'prefix' => 'datatable', 'as' => 'datatable.'], function() {
 
     // Add Middleware for Admin and Lehrer
     Route::middleware(['auth', 'role:lehrer,admin'])->group(function() {
@@ -84,7 +84,7 @@ Route::group(['namespace' => 'datatable', 'prefix' => 'datatable', 'as' => 'data
 });
 
 // WebApi
-Route::group(['middleware' => 'auth', 'namespace' => 'api', 'prefix' => 'webapi', 'as' => 'api.'], function() {
+Route::group(['middleware' => 'auth', 'namespace' => 'Api', 'prefix' => 'webapi', 'as' => 'api.'], function() {
     Route::get('/topics', 'TopicController@index')->name('topic');
     Route::get('/subjects', 'SubjectController@index')->name('subject');
     Route::get('/search', 'SearchController@index')->name('search');

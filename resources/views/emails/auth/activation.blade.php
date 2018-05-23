@@ -8,5 +8,5 @@ Vielen Dank fürs Registrieren. Bitte aktivieren Sie nun Ihren Account.
 @endcomponent
 
 Danke,<br>
-das Nachhilfe-Plattform Team
+Das Nachhilfe-Plattform Team
 @endcomponent
