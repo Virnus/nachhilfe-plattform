@@ -20,6 +20,7 @@
 </section>
 
 <section class="container m-t-md">
+    @include('layouts.partials._alert')
     <div class="columns">
         <div class="column is-3">
             <angebote-filter base="{{ url('/') }}"

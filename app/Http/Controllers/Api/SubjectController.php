@@ -9,7 +9,11 @@ use App\Subject;
 
 class SubjectController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Gibt alle Fächer zurück
+     * @return Response json
+     */
+    public function index()
     {
         return Subject::get();
     }

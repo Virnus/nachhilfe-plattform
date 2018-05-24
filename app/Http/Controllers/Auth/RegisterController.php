@@ -78,6 +78,12 @@ class RegisterController extends Controller
         ]);
     }
 
+    /**
+     * Führt ein UserRequestedActivationEmail Event aus
+     * @param  Request $request
+     * @param  User  $user
+     * @return Redirect $this->redirectPath()
+     */
     protected function registered(Request $request, $user)
     {
         event(new UserRequestedActivationEmail($user));

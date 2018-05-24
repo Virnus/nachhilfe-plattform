@@ -9,6 +9,13 @@ use App\{ Angebot, User, Lernzentrum };
 
 class SearchController extends Controller
 {
+    /**
+     * Testet ob Angebote, Lernzentren oder Benutzer verfügbar sind die auf
+     * den eigegeben Query-String zutreffend sind
+     * Die gefundenen dateb werden als Json Response zurückgegeben
+     * @param  Request $request [description]
+     * @return Response json
+     */
     public function index(Request $request) {
         $angebote = Angebot::filter($request->q)->get()
             ->makeHidden(['created_at', 'updated_at']);

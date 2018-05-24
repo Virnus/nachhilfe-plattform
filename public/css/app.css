@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*! bulma.io v0.6.2 | MIT License | github.com/jgthms/bulma */
 
 /* modified path import of other modules */
@@ -19915,4 +19916,7 @@ input[type=range].slider.is-danger .has-output-tooltip + output {
   -webkit-transform: rotate(135deg);
           transform: rotate(135deg);
 }
+=======
+/*! bulma.io v0.6.2 | MIT License | github.com/jgthms/bulma */@-webkit-keyframes spinAround{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes spinAround{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+>>>>>>> 58a93edf90704b978b7fe5ced80cf43d30d5dbb1
 

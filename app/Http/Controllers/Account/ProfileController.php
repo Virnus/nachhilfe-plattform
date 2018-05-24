@@ -7,11 +7,21 @@ use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
+    /**
+     * Gibt gibt den View zurück mit dem Formular um das Profil zu ändern.
+     * @return View account.profile
+     */
     public function index()
     {
         return view('account.profile');
     }
 
+    /**
+     * Die Eingaben werden nach verschiedenen Kriterien geprüft.
+     * Die neuen Daten werden gespeichert.
+     * @param  Request $request
+     * @return Redirect back
+     */
     public function update(Request $request)
     {
         $this->validate($request, [

@@ -10,6 +10,8 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
+     * Setzt die defaultStringLength für MySQL
+     * Setzt den default View für Pagination
      *
      * @return void
      */

@@ -111,6 +111,10 @@ class LernzentrumController extends Controller
             ->withSuccess('Lernzentrum wurde erfolgreich gelöscht.');
     }
 
+    /**
+     * Validiert das Lernzentrum Objekt
+     * @param  Request $request [description]
+     */
     private function _validate(Request $request)
     {
         $request->validate([

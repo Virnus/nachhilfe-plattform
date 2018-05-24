@@ -67,7 +67,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
     });
 });
 
-// Datatable Rescources
+// Datatable Resources
 Route::group(['namespace' => 'DataTable', 'prefix' => 'datatable', 'as' => 'datatable.'], function() {
 
     // Add Middleware for Admin and Lehrer
@@ -93,4 +93,5 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Api', 'prefix' => 'webapi'
 // Auth
 Auth::routes();
 
+// Activation Route
 Route::get('/auth/activate', 'Auth\\ActivationController@activate')->name('auth.activate');
