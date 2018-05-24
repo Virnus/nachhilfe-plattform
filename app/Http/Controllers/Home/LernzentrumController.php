@@ -11,6 +11,10 @@ use App\Topic;
 
 class LernzentrumController extends Controller
 {
+    /**
+     * Gibt gibt den View zurück mit dem aktuellen Lernzentrum
+     * @return View home.lernzentrum
+     */
     public function index()
     {
         $lernzentrum = Lernzentrum::isFuture()->orderBy('date', 'asc')->first();
@@ -18,11 +22,23 @@ class LernzentrumController extends Controller
         return view('home.lernzentrum', compact('lernzentrum'));
     }
 
+    /**
+     * Gibt gibt den View zurück mit dem gegebenen Lernzentrum
+     * @return View home.lernzentrum
+     */
     public function detail(Lernzentrum $lernzentrum)
     {
         return view('home.lernzentrum', compact('lernzentrum'));
     }
 
+    /**
+     * Der angemeldete benutzer wird für das gewünschte Lernzentrum angemeldet,
+     * falls er nicht schon angemeldet ist
+     * Das fasch, sowie die Topics die der Benutzer lernen will werden gespeichert
+     * @param  Request     $request
+     * @param  Lernzentrum $lernzentrum
+     * @return Redirect    back
+     */
     public function signup(Request $request, Lernzentrum $lernzentrum)
     {
         if (!$lernzentrum->isSignUp($request->user())) {
@@ -55,10 +71,16 @@ class LernzentrumController extends Controller
         return back();
     }
 
+    /**
+     * Der angemeldete Benutzer wird vom gewünschten Lernzentrum abgemeldet
+     * @param  Request     $request
+     * @param  Lernzentrum $lernzentrum
+     * @return Redirect    back
+     */
     public function signout(Request $request, Lernzentrum $lernzentrum)
     {
         $anmeldung = $request->user()->anmeldungen()->byLernzentrum($lernzentrum)->first();
-        
+
         $anmeldung->topics()->detach();
         $anmeldung->delete();
 

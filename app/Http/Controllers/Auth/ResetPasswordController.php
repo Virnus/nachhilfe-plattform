@@ -39,6 +39,13 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * Setzt das Passwort zurück
+     * Führt Illuminate\Auth\Events\PasswordReset Event aus
+     * Loggt dn User ein, falls er aktiv ist
+     * @param User $user
+     * @param String $password
+     */
     protected function resetPassword($user, $password)
     {
         $user->password = Hash::make($password);
@@ -54,9 +61,12 @@ class ResetPasswordController extends Controller
         }
     }
 
+    /**
+     * Leitet den User weiter
+     */
     protected function sendResetResponse($response)
     {
         return redirect($this->redirectPath())
-                            ->withSuccess('Ihr Passwort wurde zurückgesetzt.');
+            ->withSuccess('Ihr Passwort wurde zurückgesetzt.');
     }
 }

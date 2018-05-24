@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\DataTable;
 
 use Illuminate\Http\Request;
-use App\User;
 use App\Http\Controllers\Controller;
-use \Illuminate\Support\Facades\DB;
+use App\User;
 
 class UserController extends DataTableController
 {
@@ -46,7 +45,7 @@ class UserController extends DataTableController
     {
         return [
             'email' => 'email',
-            'ausbildung' => 'select|GYM,WMS,IMS',
+            'ausbildung' => 'select|,GYM,WMS,IMS',
             'role' => 'select|schueler,lehrer,admin',
             'password' => 'password',
             'verified' => 'checkbox',
@@ -77,7 +76,7 @@ class UserController extends DataTableController
         $request->validate([
             'name' => 'required',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'ausbildung' => 'string|in:GYM,WMS,IMS',
+            'ausbildung' => 'nullable|string|in:GYM,WMS,IMS',
             'role' => 'required|string|in:schueler,lehrer,admin',
         ]);
     }

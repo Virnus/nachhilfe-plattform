@@ -8,6 +8,7 @@ class CheckRole
 {
     /**
      * Handle an incoming request.
+     * Testet ob der benutzer die verlangten Rollen hat
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

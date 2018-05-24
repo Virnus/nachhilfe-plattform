@@ -12,6 +12,12 @@ use App\Lernzentrum;
 
 class HomeController extends Controller
 {
+    /**
+     * Tested ob diverse Filter gegeben sind
+     * Gibt gefilterte Angebote zurück
+     * @param  Request $request
+     * @return View home
+     */
     public function index(Request $request)
     {
         $angebot = $request->get('angebot');

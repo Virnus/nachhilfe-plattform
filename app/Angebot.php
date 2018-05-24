@@ -9,6 +9,10 @@ class Angebot extends Model
 {
     protected $fillable = [ 'title', 'info', 'user_id', 'subject_id'];
 
+    /**
+     * Start:
+     * Beziehungen
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -23,6 +27,10 @@ class Angebot extends Model
     {
         return $this->belongsToMany(Topic::class, 'angebot_topic');
     }
+    /**
+     * Ende:
+     * Beziehungen
+     */
 
     public function scopeById(Builder $builder, $id)
     {

@@ -11,9 +11,15 @@ use App\Mail\Home\UserContacted;
 
 class UserController extends Controller
 {
+    /**
+     * Das Profil des gewünschten Users wird angezeigt
+     * @param  Request $request
+     * @param  String  $username
+     * @return View    home.users.detail
+     */
     public function detail(Request $request, $username)
     {
-        if (strlen($username) < 7) {
+        if (strlen($username) < 3) {
             return abort(404);
         }
 
@@ -34,10 +40,16 @@ class UserController extends Controller
             ->with('angebote',$angebote);
     }
 
+    /**
+     * dem gewünschten User wird eine Mail vom authentifizierten User gesendet
+     * @param  String   $username
+     * @param  Request  $request
+     * @return Redirect back
+     */
     public function store($username, Request $request)
     {
         $user = User::byUsername($username)->isActive()->firstOrFail();
-        
+
         Mail::to($user)->send(new UserContacted(auth()->user(), $request->title, $request->content));
 
         return back()

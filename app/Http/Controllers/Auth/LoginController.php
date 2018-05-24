@@ -39,6 +39,10 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * validaiert die eingebenen Daten
+     * @param  Request $request [description]
+     */
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
@@ -52,6 +56,10 @@ class LoginController extends Controller
         ], $this->validationError());
     }
 
+    /**
+     * Gibt benutzerdefinierte Fehlermeldung zurück
+     * @return [type] [description]
+     */
     protected function validationError()
     {
         return [

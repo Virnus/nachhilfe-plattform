@@ -1,21 +1,7 @@
-# ToDo
+# Nachhilfe Plattform
 
-*   Rollenverteilung
-
-*   Glossar
-*   Dokumentation
-
-## Oliver
-
-*   Adminverwaltung
-*   Angebote
-
-## Serafin
-
-*   Adminverwaltung
-*   Lernzentrum
-*   Suche
-*   Account
+Eine Plattform für Schulen um den Kontakt unter den Schülern zu fördern.
+Schüler haben die Möglichkeit auf Angebote ihrer Mitschüler zu antworten oder eigene Angebote zu erstellen.
 
 ## Routes
 

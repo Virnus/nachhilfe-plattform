@@ -29,6 +29,11 @@ abstract class DataTableController extends Controller
 
     }
 
+    /**
+     * Gibt die Resultate als Json Reponse zurück
+     * @param  Request $request
+     * @return Response json
+     */
     public function index(Request $request) {
         return response()->json([
             'data' => [
@@ -46,6 +51,11 @@ abstract class DataTableController extends Controller
         ]);
     }
 
+    /**
+     * Updated den gewünschten Datensatz, falls zugelassen
+     * @param  Int  $id
+     * @param  Request $request
+     */
     public function update($id, Request $request) {
         if(!$this->allowedDeletion) {
             return;
@@ -53,7 +63,10 @@ abstract class DataTableController extends Controller
 
         $this->builder->find($id)->update($request->only($this->getUpdatableColumns()));
     }
-
+    /**
+     * Speichert einen gewünschten Datensatz, falls zugelassen
+     * @param  Request $request
+     */
     public function store(Request $request) {
         if(!$this->allowCreation) {
             return;
@@ -62,30 +75,61 @@ abstract class DataTableController extends Controller
         $this->builder->create($request->only($this->getUpdatableColumns()));
     }
 
+    /**
+     * Löscht den gewünschten Datensatz
+     * @param  Int  $id
+     * @param  Request $request
+     */
     public function destroy($id, Request $request) {
         $this->builder->find($id)->delete();
     }
 
+    /**
+     * Gibt alle Splaten zurück die enagezeigt werden sollen
+     * @return Array
+     */
     public function getDisplayableColumns() {
         return array_diff($this->getDatabaseColumnNames(), $this->builder->getModel()->getHidden());
     }
 
+    /**
+     * Gibt alle benutzerdefinierten Spalten zurück
+     * @return Array
+     */
     public function getCustomColumnNames() {
         return [];
     }
 
+    /**
+     * Gibt alle benutzerdefinierten Spaltentypen zurück
+     * @return Array
+     */
     public function getCustomColumnTypes() {
         return [];
     }
 
+    /**
+     * Gibt alle Spalten zurück die bearbeitbar sind
+     * @return Array
+     */
     public function getUpdatableColumns() {
         return $this->getDisplayableColumns();
     }
 
+    /**
+     * Gibt alle Spalten zurück die in der Tabelle vorhanden sind
+     * @return Array
+     */
     protected function getDatabaseColumnNames() {
         return Schema::getColumnListing($this->builder->getModel()->getTable());
     }
 
+    /**
+     * Testet ob eine SearchQuery gegeben ist.
+     * Gibt alle gefundenen Resultate zurück
+     * @param  Request $request
+     * @return Array
+     */
     protected function getRecords(Request $request) {
         $builder = $this->builder;
 
@@ -101,16 +145,33 @@ abstract class DataTableController extends Controller
 
     }
 
+    /**
+     * Tested ob SearchQuery gegeben ist
+     * @param  Request $request
+     * @return boolean
+     */
     protected function hasSearchQuery(Request $request) {
         return count(array_filter($request->only(['column', 'operator', 'value']))) === 3;
     }
 
+    /**
+     * Stellt die Suche zusammen
+     * @param  Builder $builder
+     * @param  Request $request
+     * @return Builder
+     */
     protected function buildSearch(Builder $builder, Request $request) {
         $queryParts = $this->resolveQueryParts($request->operator, $request->value);
 
         return $builder->where($request->column, $queryParts['operator'], $queryParts['value']);
     }
 
+    /**
+     * Gibt alle verfügbaren Suchoptionen zurück
+     * @param  String $operator
+     * @param  Value $value
+     * @return Array 
+     */
     protected function resolveQueryParts($operator, $value) {
         return array_get([
             'equals' => [
