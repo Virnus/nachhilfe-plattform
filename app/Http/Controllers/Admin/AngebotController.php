@@ -28,10 +28,11 @@ class AngebotController extends Controller
 
     public function update(Request $request, Angebot $angebot)
     {
+        $this->_validate($request);
 
         $angebot->update($request->only('title', 'info'));
 
-        return redirect()->route('admin.angebot.index')
+        return redirect()->route('admin.angebote.index')
             ->withSuccess('Angebot wurde erfolgreich bearbeitet.');
     }
 
@@ -39,8 +40,16 @@ class AngebotController extends Controller
     {
         $angebot->delete();
 
-        return redirect()->route('admin.angebot.index')
+        return redirect()->route('admin.angebote.index')
             ->withSuccess('Angebot wurde erfolgreich gelöscht.');
+    }
+
+    private function _validate(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'info' => 'required',
+        ]);
     }
 
 }

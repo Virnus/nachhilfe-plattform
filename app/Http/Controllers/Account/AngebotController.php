@@ -24,6 +24,8 @@ class AngebotController extends Controller
 
     public function store(Request $request)
     {
+        $this->_validate($request);
+
         $angebot = Angebot::create([
             'title' => $request->title,
             'info' => $request->info,
@@ -66,6 +68,8 @@ class AngebotController extends Controller
 
     public function update(Request $request, Angebot $angebot)
     {
+        $this->_validate($request);
+
         if (!$angebot->isOwner(auth()->user())) {
             abort(404);
         }
@@ -86,5 +90,13 @@ class AngebotController extends Controller
 
         return redirect()->route('account.angebote.index')
             ->withSuccess('Angebot wurde erfolgreich gelöscht.');
+    }
+
+    private function _validate(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'info' => 'required',
+        ]);
     }
 }
