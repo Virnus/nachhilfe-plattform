@@ -122,6 +122,10 @@ class AngebotController extends Controller
             ->withSuccess('Angebot wurde erfolgreich gelöscht.');
     }
 
+    /**
+     * Validiert das Angebot Objekt
+     * @param  Request $request [description]
+     */
     private function _validate(Request $request)
     {
         $request->validate([
